@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Inertia\Inertia;
 
 class HomeController
 {
     public function index()
     {
-        return view('home');
+        return Inertia::render('Home');
+        // return view('home');
     }
 }
