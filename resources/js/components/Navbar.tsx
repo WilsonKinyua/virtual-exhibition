@@ -27,7 +27,7 @@ export default function Navbar() {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" href="/">
-                                <i className="fa fa-briefcase-blank"></i>{" "}
+                                <i className="fa fa-briefcase"></i>{" "}
                                 Confrence Bag
                             </Link>
                         </li>
@@ -38,7 +38,7 @@ export default function Navbar() {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" href="/">
-                                <i className="fa fa-circle-question"></i>{" "}
+                                <i className="fa fa-circle"></i>{" "}
                                 Information Desk
                             </Link>
                         </li>
@@ -64,7 +64,7 @@ export default function Navbar() {
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" href="/">
-                                <i className="fa fa-video"></i> Video Vault
+                                <i className="fa fa-image"></i> Video Vault
                             </Link>
                         </li>
                     </ul>

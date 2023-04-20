@@ -75,7 +75,7 @@ export default function Login() {
                             <div className="sign__action">
                                 <div className="sign__check">
                                     <input
-                                        className="e-check-input"
+                                        className="e-check-input form-check-input"
                                         type="checkbox"
                                         name="remember"
                                         id="remember"
