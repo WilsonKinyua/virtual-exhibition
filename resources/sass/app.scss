@@ -237,6 +237,16 @@ body {
     background-color: #151515 !important;
 }
 
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1500px;
+    }
+}
 video {
     object-fit: cover;
     position: absolute;
