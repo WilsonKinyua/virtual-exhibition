@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { router, usePage } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import { toast, ToastContainer } from "react-toastify";
 import { isValidEmail } from "../../helpers/validation";
 export default function Login() {
@@ -86,9 +86,9 @@ export default function Login() {
                                 </div>
                                 <div className="sign__forget">
                                     <span>
-                                        <a href="#" className="main-color">
+                                        <Link href="/" className="main-color">
                                             Forget Password?
-                                        </a>
+                                        </Link>
                                     </span>
                                 </div>
                             </div>

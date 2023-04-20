@@ -1,6 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'Virtual Exhibition Platform',
-
+    'site_title' => 'Virtual Exhibition Software | WebExpo',
 ];
