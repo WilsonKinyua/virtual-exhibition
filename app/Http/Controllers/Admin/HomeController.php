@@ -8,6 +8,5 @@ class HomeController
     public function index()
     {
         return Inertia::render('Home');
-        // return view('home');
     }
 }

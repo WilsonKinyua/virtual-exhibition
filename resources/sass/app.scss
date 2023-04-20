@@ -1,3 +1,36 @@
 // Variables
-@import "variables";
+@import url("../assets/css/bootstrap.min.css");
+@import url("../assets/css/meanmenu.min.css");
+@import url("../assets/css/animate.css");
+@import url("../assets/css/metisMenu.min.css");
+@import url("../assets/css/swiper-bundle.min.css");
+@import url("../assets/css/magnific-popup.css");
+@import url("../assets/css/flaticon.css");
+@import url("../assets/css/slick.css");
+@import url("../assets/css/fontawesome-pro.css");
+@import url("../assets/css/spacing.css");
+@import url("../assets/css/main.css");
 
+// $main-color: "#d96354";
+
+.main-color {
+    color: #d96354;
+}
+
+video {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+.form-input-error {
+    border: 1.5px solid red !important;
+}
+
+p.form-error {
+    color: red;
+    font-size: 13px;
+}
