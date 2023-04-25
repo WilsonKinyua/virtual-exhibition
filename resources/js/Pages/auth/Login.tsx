@@ -30,10 +30,12 @@ export default function Login() {
                 <div className="card sign__center-wrapper ">
                     <div className="card-body sign__input-form">
                         <div className="sign__title-wrapper mb-20 text-center">
-                            <h3 className="sign__title text-dark">Sign In</h3>
-                            <p>
-                                Welcome back, sign in with your credentials
-                                below
+                            <img
+                                src="https://africacacongress.org/img/logo.png"
+                                alt="Company Logo"
+                            />
+                            <p className="mb-2">
+                                Enter your email and password to login
                             </p>
                         </div>
                         <form
@@ -97,16 +99,10 @@ export default function Login() {
                                     className="input__btn w-100 mb-20"
                                     type="submit"
                                 >
-                                    Sign in
+                                    Login
                                 </button>
                             </div>
                         </form>
-                        {/* <div className="if__account mt-85">
-                        <p>
-                            Don’t Have An Account?
-                            <a href="signup.html"> Sign up</a>
-                        </p>
-                    </div> */}
                     </div>
                 </div>
             </section>

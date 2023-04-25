@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ trans('panel.site_title') }}</title>
-    <link href="https://newmark-imc.com/img/favicon.png" rel="shortcut icon" type="image" />
+    <link rel="shortcut icon" href="https://africacacongress.org/img/favicon.ico" type="image/x-icon">
     @vite('resources/js/app.tsx')
     @inertiaHead
 </head>

@@ -19,16 +19,16 @@ export default function Home() {
                             <div className="card-body">
                                 <ul>
                                     <li>
-                                        <Link href="/">Amref Enterprises</Link>
+                                        <Link href="/exhibitor/amref/details">Amref Enterprises</Link>
                                     </li>
                                     <li>
-                                        <Link href="/">Amref Enterprises</Link>
+                                        <Link href="/exhibitor/amref/details">Amref Enterprises</Link>
                                     </li>
                                     <li>
-                                        <Link href="/">Amref Enterprises</Link>
+                                        <Link href="/exhibitor/amref/details">Amref Enterprises</Link>
                                     </li>
                                     <li>
-                                        <Link href="/">Amref Enterprises</Link>
+                                        <Link href="/exhibitor/amref/details">Amref Enterprises</Link>
                                     </li>
                                 </ul>
                             </div>

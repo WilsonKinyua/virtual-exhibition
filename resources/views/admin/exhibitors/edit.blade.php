@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.exhibitors.update", [$exhibitor->id]) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("exhibitors.update", [$exhibitor->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf
             <div class="form-group">
@@ -143,7 +143,7 @@
               return new Promise(function(resolve, reject) {
                 // Init request
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '{{ route('admin.exhibitors.storeCKEditorImages') }}', true);
+                xhr.open('POST', '{{ route('exhibitors.storeCKEditorImages') }}', true);
                 xhr.setRequestHeader('x-csrf-token', window._token);
                 xhr.setRequestHeader('Accept', 'application/json');
                 xhr.responseType = 'json';

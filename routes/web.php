@@ -14,6 +14,9 @@ Auth::routes(['register' => false]);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
+
+    Route::get('exhibitor/{slug}/details', 'HomeController@exhibitorDetails')->name('exhibitor-details');
+    
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');
