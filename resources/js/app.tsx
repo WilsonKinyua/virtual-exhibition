@@ -7,6 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "react-toastify/dist/ReactToastify.css";
 import "font-awesome/css/font-awesome.min.css";
 import "../sass/app.scss";
+import $ from "jquery";
 
 createInertiaApp({
     resolve: (name) =>

@@ -42,10 +42,12 @@ export default function ExhibitorDetails() {
                                     </a>
                                 </li>
                                 <li>
-                                    <Link href="/">Chat</Link>
+                                    <Link href="/chat">Chat</Link>
                                 </li>
                                 <li>
-                                    <Link href="/">Reserve a Chat Slot</Link>
+                                    <Link href="/chat">
+                                        Reserve a Chat Slot
+                                    </Link>
                                 </li>
                             </ul>
                         </div>

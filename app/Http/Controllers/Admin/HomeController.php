@@ -15,4 +15,11 @@ class HomeController
     {
         return Inertia::render('exhibitors/ExhibitorDetails');
     }
+
+    public function chat()
+    {
+        return Inertia::render('chat/Index', [
+            "user" => auth()->user()
+        ]);
+    }
 }

@@ -53,7 +53,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" href="/">
+                            <Link className="nav-link" href="/chat">
                                 <i className="fa fa-comment"></i> Networking
                             </Link>
                         </li>

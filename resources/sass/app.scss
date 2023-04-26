@@ -556,14 +556,14 @@ p.form-error {
     font-size: 13px;
 }
 
-.navbar {
+.navbar.navbar-expand-lg {
     .navbar-toggler {
         border-color: #fff;
     }
     background-color: #255946;
     .nav-link {
         color: #fff;
-        margin-right: 10px;
+        margin-right: 22px;
         line-height: 10px;
         border-right: 1px solid #afafaf;
 
@@ -679,4 +679,114 @@ p.form-error {
     padding-bottom: 10px;
     padding-top: 10px;
     border-bottom: 1px solid #eaeaea;
+}
+
+.navbar-chat {
+    padding: 0px !important;
+    .navbar-brand img {
+        width: 100%;
+        height: 40px;
+    }
+}
+
+.chat {
+    .card {
+        background-color: #f2f2f2;
+        border: none;
+        border-radius: 0;
+    }
+
+    h6 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        p {
+            font-size: 12px;
+            color: #000;
+            margin-top: 5px;
+        }
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .chat-container {
+        height: 150px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    .chat-header {
+        border-bottom: 1px solid #d0d0d0;
+        margin-bottom: 10px;
+    }
+
+    .chat-list {
+        height: 87vh;
+        overflow: hidden;
+        overflow-y: auto;
+        background-color: #f2f2f2;
+    }
+
+    .chat-body {
+        height: 88vh;
+        overflow: hidden;
+        overflow-y: auto;
+        margin: 20px;
+    }
+
+    .chat-message {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .chat-body-list {
+        height: 83vh;
+        overflow: hidden;
+        overflow-y: auto;
+        background-color: #f2f2f2;
+    }
+
+    .message-form {
+        height: 10vh;
+
+        input {
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+            &:focus,
+            &:active {
+                outline: none;
+                box-shadow: none;
+                border: 1px solid #f8a507;
+            }
+        }
+
+        button {
+            background-color: #616e7e;
+            color: #fff;
+        }
+    }
+}
+.nav-item.dropdown {
+    display: flex;
+}
+.profile-avatar img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 5px;
 }
