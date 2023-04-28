@@ -5,8 +5,9 @@
     <div class="card-header">
         {{ trans('global.create') }} {{ trans('cruds.exhibitor.title_singular') }}
     </div>
+
     <div class="card-body">
-        <form method="POST" action="{{ route("exhibitors.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route("admin.exhibitors.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="company_id">{{ trans('cruds.exhibitor.fields.company') }}</label>
@@ -131,7 +132,7 @@
               return new Promise(function(resolve, reject) {
                 // Init request
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '{{ route('exhibitors.storeCKEditorImages') }}', true);
+                xhr.open('POST', '{{ route('admin.exhibitors.storeCKEditorImages') }}', true);
                 xhr.setRequestHeader('x-csrf-token', window._token);
                 xhr.setRequestHeader('Accept', 'application/json');
                 xhr.responseType = 'json';

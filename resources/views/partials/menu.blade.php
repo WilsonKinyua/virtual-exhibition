@@ -8,7 +8,7 @@
 
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
-            <a href="{{ route("home") }}" class="c-sidebar-nav-link">
+            <a href="" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
 
                 </i>
@@ -17,7 +17,8 @@
         </li>
         @can('company_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("companies.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/companies") || request()->is("admin/companies/*") ? "c-active" : "" }}">
+                <a href="{{ route('admin.companies.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/companies') || request()->is('admin/companies/*') ? 'c-active' : '' }}">
                     <i class="fa-fw fas fa-building c-sidebar-nav-icon">
 
                     </i>
@@ -27,7 +28,8 @@
         @endcan
         @can('country_access')
             <li class="c-sidebar-nav-item">
-                <a href="{{ route("countries.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/countries") || request()->is("admin/countries/*") ? "c-active" : "" }}">
+                <a href="{{ route('admin.countries.index') }}"
+                    class="c-sidebar-nav-link {{ request()->is('admin/countries') || request()->is('admin/countries/*') ? 'c-active' : '' }}">
                     <i class="fa-fw fas fa-flag c-sidebar-nav-icon">
 
                     </i>
@@ -36,7 +38,8 @@
             </li>
         @endcan
         @can('chat_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/chat-rooms*") ? "c-show" : "" }} {{ request()->is("admin/chats*") ? "c-show" : "" }}">
+            <li
+                class="c-sidebar-nav-dropdown {{ request()->is('admin/chat-rooms*') ? 'c-show' : '' }} {{ request()->is('admin/chats*') ? 'c-show' : '' }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-comment c-sidebar-nav-icon">
 
@@ -46,7 +49,8 @@
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('chat_room_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("chat-rooms.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/chat-rooms") || request()->is("admin/chat-rooms/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.chat-rooms.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/chat-rooms') || request()->is('admin/chat-rooms/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-comments c-sidebar-nav-icon">
 
                                 </i>
@@ -56,7 +60,8 @@
                     @endcan
                     @can('chat_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("chats.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/chats") || request()->is("admin/chats/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.chats.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/chats') || request()->is('admin/chats/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-comments c-sidebar-nav-icon">
 
                                 </i>
@@ -68,7 +73,8 @@
             </li>
         @endcan
         @can('exhibitor_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/exhibitors*") ? "c-show" : "" }} {{ request()->is("admin/exhibitor-videos*") ? "c-show" : "" }} {{ request()->is("admin/exhibitor-documents*") ? "c-show" : "" }}">
+            <li
+                class="c-sidebar-nav-dropdown {{ request()->is('admin/exhibitors*') ? 'c-show' : '' }} {{ request()->is('admin/exhibitor-videos*') ? 'c-show' : '' }} {{ request()->is('admin/exhibitor-documents*') ? 'c-show' : '' }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw far fa-building c-sidebar-nav-icon">
 
@@ -78,7 +84,8 @@
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('exhibitor_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("exhibitors.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/exhibitors") || request()->is("admin/exhibitors/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.exhibitors.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/exhibitors') || request()->is('admin/exhibitors/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fab fa-pagelines c-sidebar-nav-icon">
 
                                 </i>
@@ -88,7 +95,8 @@
                     @endcan
                     @can('exhibitor_video_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("exhibitor-videos.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/exhibitor-videos") || request()->is("admin/exhibitor-videos/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.exhibitor-videos.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/exhibitor-videos') || request()->is('admin/exhibitor-videos/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-building c-sidebar-nav-icon">
 
                                 </i>
@@ -98,7 +106,8 @@
                     @endcan
                     @can('exhibitor_document_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("exhibitor-documents.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/exhibitor-documents") || request()->is("admin/exhibitor-documents/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.exhibitor-documents.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/exhibitor-documents') || request()->is('admin/exhibitor-documents/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-building c-sidebar-nav-icon">
 
                                 </i>
@@ -110,7 +119,8 @@
             </li>
         @endcan
         @can('user_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }}">
+            <li
+                class="c-sidebar-nav-dropdown {{ request()->is('admin/users*') ? 'c-show' : '' }} {{ request()->is('admin/permissions*') ? 'c-show' : '' }} {{ request()->is('admin/roles*') ? 'c-show' : '' }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-users c-sidebar-nav-icon">
 
@@ -120,7 +130,8 @@
                 <ul class="c-sidebar-nav-dropdown-items">
                     @can('user_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("users.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.users.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-user c-sidebar-nav-icon">
 
                                 </i>
@@ -130,7 +141,8 @@
                     @endcan
                     @can('permission_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.permissions.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-unlock-alt c-sidebar-nav-icon">
 
                                 </i>
@@ -140,7 +152,8 @@
                     @endcan
                     @can('role_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "c-active" : "" }}">
+                            <a href="{{ route('admin.roles.index') }}"
+                                class="c-sidebar-nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'c-active' : '' }}">
                                 <i class="fa-fw fas fa-briefcase c-sidebar-nav-icon">
 
                                 </i>
@@ -151,10 +164,11 @@
                 </ul>
             </li>
         @endcan
-        @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
+        @if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}" href="{{ route('profile.password.edit') }}">
+                    <a class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}"
+                        href="{{ route('profile.password.edit') }}">
                         <i class="fa-fw fas fa-key c-sidebar-nav-icon">
                         </i>
                         {{ trans('global.change_password') }}
@@ -163,7 +177,8 @@
             @endcan
         @endif
         <li class="c-sidebar-nav-item">
-            <a href="#" class="c-sidebar-nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+            <a href="#" class="c-sidebar-nav-link"
+                onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-sign-out-alt">
 
                 </i>

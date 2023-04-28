@@ -4,9 +4,13 @@ import { Link } from "@inertiajs/react";
 export default function ExhibitorDetails() {
     return (
         <Layout>
-            <div className="three_d_view">
+            <div className="three_d_view exhibitor-details">
                 <div className="container">
-                    <div className="bg-view"></div>
+                    <img
+                        src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2020/03/06/692052/296502/exhibition_stand_three_sides_open_stall_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3100464_o.jpg"
+                        alt=""
+                        title="Exhibitor Name"
+                    />
                 </div>
             </div>
             <div className="container" style={{ paddingBottom: "50px" }}>
