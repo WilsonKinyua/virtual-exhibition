@@ -15,17 +15,6 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
-        @can('company_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route('admin.companies.index') }}"
-                    class="c-sidebar-nav-link {{ request()->is('admin/companies') || request()->is('admin/companies/*') ? 'c-active' : '' }}">
-                    <i class="fa-fw fas fa-building c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.company.title') }}
-                </a>
-            </li>
-        @endcan
         @can('country_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route('admin.countries.index') }}"

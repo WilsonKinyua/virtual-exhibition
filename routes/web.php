@@ -36,12 +36,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
         Route::post('users/process-csv-import', 'UsersController@processCsvImport')->name('users.processCsvImport');
         Route::resource('users', 'UsersController');
 
-        // Company
-        Route::delete('companies/destroy', 'CompanyController@massDestroy')->name('companies.massDestroy');
-        Route::post('companies/media', 'CompanyController@storeMedia')->name('companies.storeMedia');
-        Route::post('companies/ckmedia', 'CompanyController@storeCKEditorImages')->name('companies.storeCKEditorImages');
-        Route::resource('companies', 'CompanyController');
-
         // Exhibitor
         Route::delete('exhibitors/destroy', 'ExhibitorController@massDestroy')->name('exhibitors.massDestroy');
         Route::post('exhibitors/media', 'ExhibitorController@storeMedia')->name('exhibitors.storeMedia');

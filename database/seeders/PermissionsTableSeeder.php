@@ -76,154 +76,134 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 17,
-                'title' => 'company_create',
-            ],
-            [
-                'id'    => 18,
-                'title' => 'company_edit',
-            ],
-            [
-                'id'    => 19,
-                'title' => 'company_show',
-            ],
-            [
-                'id'    => 20,
-                'title' => 'company_delete',
-            ],
-            [
-                'id'    => 21,
-                'title' => 'company_access',
-            ],
-            [
-                'id'    => 22,
                 'title' => 'exhibitor_create',
             ],
             [
-                'id'    => 23,
+                'id'    => 18,
                 'title' => 'exhibitor_edit',
             ],
             [
-                'id'    => 24,
+                'id'    => 19,
                 'title' => 'exhibitor_show',
             ],
             [
-                'id'    => 25,
+                'id'    => 20,
                 'title' => 'exhibitor_delete',
             ],
             [
-                'id'    => 26,
+                'id'    => 21,
                 'title' => 'exhibitor_access',
             ],
             [
-                'id'    => 27,
+                'id'    => 22,
                 'title' => 'exhibitor_management_access',
             ],
             [
-                'id'    => 28,
+                'id'    => 23,
                 'title' => 'country_create',
             ],
             [
-                'id'    => 29,
+                'id'    => 24,
                 'title' => 'country_edit',
             ],
             [
-                'id'    => 30,
+                'id'    => 25,
                 'title' => 'country_show',
             ],
             [
-                'id'    => 31,
+                'id'    => 26,
                 'title' => 'country_delete',
             ],
             [
-                'id'    => 32,
+                'id'    => 27,
                 'title' => 'country_access',
             ],
             [
-                'id'    => 33,
+                'id'    => 28,
                 'title' => 'exhibitor_video_create',
             ],
             [
-                'id'    => 34,
+                'id'    => 29,
                 'title' => 'exhibitor_video_edit',
             ],
             [
-                'id'    => 35,
+                'id'    => 30,
                 'title' => 'exhibitor_video_show',
             ],
             [
-                'id'    => 36,
+                'id'    => 31,
                 'title' => 'exhibitor_video_delete',
             ],
             [
-                'id'    => 37,
+                'id'    => 32,
                 'title' => 'exhibitor_video_access',
             ],
             [
-                'id'    => 38,
+                'id'    => 33,
                 'title' => 'exhibitor_document_create',
             ],
             [
-                'id'    => 39,
+                'id'    => 34,
                 'title' => 'exhibitor_document_edit',
             ],
             [
-                'id'    => 40,
+                'id'    => 35,
                 'title' => 'exhibitor_document_show',
             ],
             [
-                'id'    => 41,
+                'id'    => 36,
                 'title' => 'exhibitor_document_delete',
             ],
             [
-                'id'    => 42,
+                'id'    => 37,
                 'title' => 'exhibitor_document_access',
             ],
             [
-                'id'    => 43,
+                'id'    => 38,
                 'title' => 'chat_management_access',
             ],
             [
-                'id'    => 44,
+                'id'    => 39,
                 'title' => 'chat_room_create',
             ],
             [
-                'id'    => 45,
+                'id'    => 40,
                 'title' => 'chat_room_edit',
             ],
             [
-                'id'    => 46,
+                'id'    => 41,
                 'title' => 'chat_room_show',
             ],
             [
-                'id'    => 47,
+                'id'    => 42,
                 'title' => 'chat_room_delete',
             ],
             [
-                'id'    => 48,
+                'id'    => 43,
                 'title' => 'chat_room_access',
             ],
             [
-                'id'    => 49,
+                'id'    => 44,
                 'title' => 'chat_create',
             ],
             [
-                'id'    => 50,
+                'id'    => 45,
                 'title' => 'chat_edit',
             ],
             [
-                'id'    => 51,
+                'id'    => 46,
                 'title' => 'chat_show',
             ],
             [
-                'id'    => 52,
+                'id'    => 47,
                 'title' => 'chat_delete',
             ],
             [
-                'id'    => 53,
+                'id'    => 48,
                 'title' => 'chat_access',
             ],
             [
-                'id'    => 54,
+                'id'    => 49,
                 'title' => 'profile_password_edit',
             ],
         ];
