@@ -70,10 +70,18 @@
                                 {{ $exhibitor->status ?? '' }}
                             </td>
                             <td>
-                                {{ $exhibitor->banner ?? '' }}
+                                @if($exhibitor->banner)
+                                    <a href="{{ $exhibitor->banner->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
-                                {{ $exhibitor->logo ?? '' }}
+                                @if($exhibitor->logo)
+                                    <a href="{{ $exhibitor->logo->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $exhibitor->logo->getUrl('thumb') }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ $exhibitor->website_url ?? '' }}
@@ -158,7 +166,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 3, 'asc' ]],
+    order: [[ 1, 'asc' ]],
     pageLength: 100,
   });
   let table = $('.datatable-Exhibitor:not(.ajaxTable)').DataTable({ buttons: dtButtons })

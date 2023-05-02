@@ -11,7 +11,6 @@ class CreateExhibitorDocumentsTable extends Migration
         Schema::create('exhibitor_documents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->longText('document_url');
             $table->timestamps();
             $table->softDeletes();
         });

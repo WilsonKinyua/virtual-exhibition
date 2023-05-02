@@ -60,7 +60,11 @@
                             {{ trans('cruds.exhibitor.fields.banner') }}
                         </th>
                         <td>
-                            {{ $exhibitor->banner }}
+                            @if($exhibitor->banner)
+                                <a href="{{ $exhibitor->banner->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -68,7 +72,11 @@
                             {{ trans('cruds.exhibitor.fields.logo') }}
                         </th>
                         <td>
-                            {{ $exhibitor->logo }}
+                            @if($exhibitor->logo)
+                                <a href="{{ $exhibitor->logo->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $exhibitor->logo->getUrl('thumb') }}">
+                                </a>
+                            @endif
                         </td>
                     </tr>
                     <tr>

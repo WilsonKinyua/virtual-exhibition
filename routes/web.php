@@ -48,10 +48,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
         // Exhibitor Video
         Route::delete('exhibitor-videos/destroy', 'ExhibitorVideoController@massDestroy')->name('exhibitor-videos.massDestroy');
+        Route::post('exhibitor-videos/media', 'ExhibitorVideoController@storeMedia')->name('exhibitor-videos.storeMedia');
+        Route::post('exhibitor-videos/ckmedia', 'ExhibitorVideoController@storeCKEditorImages')->name('exhibitor-videos.storeCKEditorImages');
         Route::resource('exhibitor-videos', 'ExhibitorVideoController');
 
         // Exhibitor Document
         Route::delete('exhibitor-documents/destroy', 'ExhibitorDocumentController@massDestroy')->name('exhibitor-documents.massDestroy');
+        Route::post('exhibitor-documents/media', 'ExhibitorDocumentController@storeMedia')->name('exhibitor-documents.storeMedia');
+        Route::post('exhibitor-documents/ckmedia', 'ExhibitorDocumentController@storeCKEditorImages')->name('exhibitor-documents.storeCKEditorImages');
         Route::resource('exhibitor-documents', 'ExhibitorDocumentController');
 
         // Chat Room

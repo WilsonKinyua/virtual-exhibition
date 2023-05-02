@@ -41,10 +41,14 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.exhibitorVideo.fields.video_url') }}
+                            {{ trans('cruds.exhibitorVideo.fields.video') }}
                         </th>
                         <td>
-                            {{ $exhibitorVideo->video_url }}
+                            @if($exhibitorVideo->video)
+                                <a href="{{ $exhibitorVideo->video->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 </tbody>

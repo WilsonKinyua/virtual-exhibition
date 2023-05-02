@@ -25,7 +25,7 @@ class UpdateExhibitorVideoRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'video_url' => [
+            'video' => [
                 'required',
             ],
         ];

@@ -6,10 +6,17 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ExhibitorDocument extends Model
+class ExhibitorDocument extends Model implements HasMedia
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, InteractsWithMedia, HasFactory;
+
+    protected $appends = [
+        'document',
+    ];
 
     public $table = 'exhibitor_documents';
 
@@ -22,7 +29,6 @@ class ExhibitorDocument extends Model
     protected $fillable = [
         'exhibitor_id',
         'title',
-        'document_url',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -33,8 +39,19 @@ class ExhibitorDocument extends Model
         return $date->format('Y-m-d H:i:s');
     }
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
     public function exhibitor()
     {
         return $this->belongsTo(Exhibitor::class, 'exhibitor_id');
+    }
+
+    public function getDocumentAttribute()
+    {
+        return $this->getMedia('document')->last();
     }
 }

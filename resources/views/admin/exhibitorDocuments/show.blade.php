@@ -41,10 +41,14 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.exhibitorDocument.fields.document_url') }}
+                            {{ trans('cruds.exhibitorDocument.fields.document') }}
                         </th>
                         <td>
-                            {{ $exhibitorDocument->document_url }}
+                            @if($exhibitorDocument->document)
+                                <a href="{{ $exhibitorDocument->document->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 </tbody>

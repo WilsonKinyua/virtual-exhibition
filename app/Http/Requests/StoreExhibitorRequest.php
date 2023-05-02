@@ -17,14 +17,16 @@ class StoreExhibitorRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_id' => [
-                'required',
-                'integer',
-            ],
             'name' => [
                 'string',
                 'required',
                 'unique:exhibitors',
+            ],
+            'banner' => [
+                'required',
+            ],
+            'logo' => [
+                'required',
             ],
         ];
     }

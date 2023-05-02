@@ -25,7 +25,7 @@ class StoreExhibitorDocumentRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'document_url' => [
+            'document' => [
                 'required',
             ],
         ];

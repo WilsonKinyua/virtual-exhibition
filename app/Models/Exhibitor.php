@@ -16,6 +16,11 @@ class Exhibitor extends Model implements HasMedia
 
     public $table = 'exhibitors';
 
+    protected $appends = [
+        'banner',
+        'logo',
+    ];
+
     protected $dates = [
         'created_at',
         'updated_at',
@@ -27,9 +32,7 @@ class Exhibitor extends Model implements HasMedia
         'country_id',
         'status',
         'description',
-        'banner',
         'slug',
-        'logo',
         'website_url',
         'twitter_url',
         'linkedin_url',
@@ -52,5 +55,22 @@ class Exhibitor extends Model implements HasMedia
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function getBannerAttribute()
+    {
+        return $this->getMedia('banner')->last();
+    }
+
+    public function getLogoAttribute()
+    {
+        $file = $this->getMedia('logo')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
     }
 }

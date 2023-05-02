@@ -44,8 +44,9 @@
                 <span class="help-block">{{ trans('cruds.exhibitor.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="banner">{{ trans('cruds.exhibitor.fields.banner') }}</label>
-                <textarea class="form-control {{ $errors->has('banner') ? 'is-invalid' : '' }}" name="banner" id="banner">{{ old('banner') }}</textarea>
+                <label class="required" for="banner">{{ trans('cruds.exhibitor.fields.banner') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('banner') ? 'is-invalid' : '' }}" id="banner-dropzone">
+                </div>
                 @if($errors->has('banner'))
                     <div class="invalid-feedback">
                         {{ $errors->first('banner') }}
@@ -54,8 +55,9 @@
                 <span class="help-block">{{ trans('cruds.exhibitor.fields.banner_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="logo">{{ trans('cruds.exhibitor.fields.logo') }}</label>
-                <textarea class="form-control {{ $errors->has('logo') ? 'is-invalid' : '' }}" name="logo" id="logo">{{ old('logo') }}</textarea>
+                <label class="required" for="logo">{{ trans('cruds.exhibitor.fields.logo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('logo') ? 'is-invalid' : '' }}" id="logo-dropzone">
+                </div>
                 @if($errors->has('logo'))
                     <div class="invalid-feedback">
                         {{ $errors->first('logo') }}
@@ -171,4 +173,109 @@
 });
 </script>
 
+<script>
+    Dropzone.options.bannerDropzone = {
+    url: '{{ route('admin.exhibitors.storeMedia') }}',
+    maxFilesize: 200, // MB
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 200
+    },
+    success: function (file, response) {
+      $('form').find('input[name="banner"]').remove()
+      $('form').append('<input type="hidden" name="banner" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="banner"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($exhibitor) && $exhibitor->banner)
+      var file = {!! json_encode($exhibitor->banner) !!}
+          this.options.addedfile.call(this, file)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="banner" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
+</script>
+<script>
+    Dropzone.options.logoDropzone = {
+    url: '{{ route('admin.exhibitors.storeMedia') }}',
+    maxFilesize: 200, // MB
+    acceptedFiles: '.jpeg,.jpg,.png,.gif',
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 200,
+      width: 4096,
+      height: 4096
+    },
+    success: function (file, response) {
+      $('form').find('input[name="logo"]').remove()
+      $('form').append('<input type="hidden" name="logo" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="logo"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($exhibitor) && $exhibitor->logo)
+      var file = {!! json_encode($exhibitor->logo) !!}
+          this.options.addedfile.call(this, file)
+      this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="logo" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+    error: function (file, response) {
+        if ($.type(response) === 'string') {
+            var message = response //dropzone sends it's own error messages in string
+        } else {
+            var message = response.errors.file
+        }
+        file.previewElement.classList.add('dz-error')
+        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+        _results = []
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i]
+            _results.push(node.textContent = message)
+        }
+
+        return _results
+    }
+}
+
+</script>
 @endsection

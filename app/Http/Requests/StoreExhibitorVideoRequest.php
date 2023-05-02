@@ -25,7 +25,7 @@ class StoreExhibitorVideoRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'video_url' => [
+            'video' => [
                 'required',
             ],
         ];

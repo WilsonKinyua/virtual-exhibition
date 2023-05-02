@@ -17,10 +17,6 @@ class UpdateExhibitorRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_id' => [
-                'required',
-                'integer',
-            ],
             'name' => [
                 'string',
                 'required',
@@ -31,6 +27,12 @@ class UpdateExhibitorRequest extends FormRequest
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',
+            ],
+            'banner' => [
+                'required',
+            ],
+            'logo' => [
+                'required',
             ],
         ];
     }

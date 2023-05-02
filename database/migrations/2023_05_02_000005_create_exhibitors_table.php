@@ -13,9 +13,7 @@ class CreateExhibitorsTable extends Migration
             $table->string('name')->unique();
             $table->integer('status')->nullable();
             $table->longText('description')->nullable();
-            $table->longText('banner')->nullable();
             $table->string('slug')->nullable();
-            $table->longText('logo')->nullable();
             $table->longText('website_url')->nullable();
             $table->longText('twitter_url')->nullable();
             $table->longText('linkedin_url')->nullable();

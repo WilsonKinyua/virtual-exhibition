@@ -22,7 +22,7 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $exhibitors = Exhibitor::with(['country'])->get();
+        $exhibitors = Exhibitor::with(['country', 'media'])->get();
 
         return view('admin.exhibitors.index', compact('exhibitors'));
     }
@@ -30,7 +30,6 @@ class ExhibitorController extends Controller
     public function create()
     {
         abort_if(Gate::denies('exhibitor_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
 
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
@@ -40,6 +39,14 @@ class ExhibitorController extends Controller
     public function store(StoreExhibitorRequest $request)
     {
         $exhibitor = Exhibitor::create($request->all());
+
+        if ($request->input('banner', false)) {
+            $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
+        }
+
+        if ($request->input('logo', false)) {
+            $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
+        }
 
         if ($media = $request->input('ck-media', false)) {
             Media::whereIn('id', $media)->update(['model_id' => $exhibitor->id]);
@@ -52,7 +59,6 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $exhibitor->load('country');
@@ -63,6 +69,28 @@ class ExhibitorController extends Controller
     public function update(UpdateExhibitorRequest $request, Exhibitor $exhibitor)
     {
         $exhibitor->update($request->all());
+
+        if ($request->input('banner', false)) {
+            if (! $exhibitor->banner || $request->input('banner') !== $exhibitor->banner->file_name) {
+                if ($exhibitor->banner) {
+                    $exhibitor->banner->delete();
+                }
+                $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
+            }
+        } elseif ($exhibitor->banner) {
+            $exhibitor->banner->delete();
+        }
+
+        if ($request->input('logo', false)) {
+            if (! $exhibitor->logo || $request->input('logo') !== $exhibitor->logo->file_name) {
+                if ($exhibitor->logo) {
+                    $exhibitor->logo->delete();
+                }
+                $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('logo'))))->toMediaCollection('logo');
+            }
+        } elseif ($exhibitor->logo) {
+            $exhibitor->logo->delete();
+        }
 
         return redirect()->route('admin.exhibitors.index');
     }

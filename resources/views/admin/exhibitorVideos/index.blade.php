@@ -29,7 +29,7 @@
                             {{ trans('cruds.exhibitorVideo.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.exhibitorVideo.fields.video_url') }}
+                            {{ trans('cruds.exhibitorVideo.fields.video') }}
                         </th>
                         <th>
                             {{ trans('cruds.exhibitorVideo.fields.created_at') }}
@@ -52,7 +52,11 @@
                                 {{ $exhibitorVideo->title ?? '' }}
                             </td>
                             <td>
-                                {{ $exhibitorVideo->video_url ?? '' }}
+                                @if($exhibitorVideo->video)
+                                    <a href="{{ $exhibitorVideo->video->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ $exhibitorVideo->created_at ?? '' }}

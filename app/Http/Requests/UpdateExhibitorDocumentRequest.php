@@ -25,7 +25,7 @@ class UpdateExhibitorDocumentRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'document_url' => [
+            'document' => [
                 'required',
             ],
         ];

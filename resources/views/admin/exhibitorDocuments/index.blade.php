@@ -29,7 +29,7 @@
                             {{ trans('cruds.exhibitorDocument.fields.title') }}
                         </th>
                         <th>
-                            {{ trans('cruds.exhibitorDocument.fields.document_url') }}
+                            {{ trans('cruds.exhibitorDocument.fields.document') }}
                         </th>
                         <th>
                             {{ trans('cruds.exhibitorDocument.fields.created_at') }}
@@ -52,7 +52,11 @@
                                 {{ $exhibitorDocument->title ?? '' }}
                             </td>
                             <td>
-                                {{ $exhibitorDocument->document_url ?? '' }}
+                                @if($exhibitorDocument->document)
+                                    <a href="{{ $exhibitorDocument->document->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ $exhibitorDocument->created_at ?? '' }}
