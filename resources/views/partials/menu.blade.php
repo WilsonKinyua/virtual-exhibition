@@ -1,14 +1,14 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
     <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
-            {{ trans('panel.site_title') }}
+        <a class="c-sidebar-brand-full h4" href="{{ route('admin.dashboard') }}">
+            <img src="https://fr.africacacongress.org/img/logo-white.png" alt="Company Logo" />
         </a>
     </div>
 
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
-            <a href="" class="c-sidebar-nav-link">
+            <a href="{{ route('admin.dashboard') }}" class="c-sidebar-nav-link">
                 <i class="c-sidebar-nav-icon fas fa-fw fa-tachometer-alt">
 
                 </i>

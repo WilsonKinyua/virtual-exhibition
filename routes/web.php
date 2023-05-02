@@ -20,6 +20,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('chat', 'HomeController@chat')->name('chat');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::get('/', 'HomeController@dashboard')->name('dashboard');
+
         // Permissions
         Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
         Route::resource('permissions', 'PermissionsController');
