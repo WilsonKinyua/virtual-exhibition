@@ -25,14 +25,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.exhibitor.fields.company') }}
-                        </th>
-                        <td>
-                            {{ $exhibitor->company->name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.exhibitor.fields.name') }}
                         </th>
                         <td>

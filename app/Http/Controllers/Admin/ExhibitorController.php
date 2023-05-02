@@ -7,7 +7,6 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyExhibitorRequest;
 use App\Http\Requests\StoreExhibitorRequest;
 use App\Http\Requests\UpdateExhibitorRequest;
-use App\Models\Company;
 use App\Models\Country;
 use App\Models\Exhibitor;
 use Gate;
@@ -23,7 +22,7 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $exhibitors = Exhibitor::with(['company', 'country'])->get();
+        $exhibitors = Exhibitor::with(['country'])->get();
 
         return view('admin.exhibitors.index', compact('exhibitors'));
     }
@@ -32,11 +31,10 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $companies = Company::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.exhibitors.create', compact('companies', 'countries'));
+        return view('admin.exhibitors.create', compact('countries'));
     }
 
     public function store(StoreExhibitorRequest $request)
@@ -54,13 +52,12 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $companies = Company::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $exhibitor->load('company', 'country');
+        $exhibitor->load('country');
 
-        return view('admin.exhibitors.edit', compact('companies', 'countries', 'exhibitor'));
+        return view('admin.exhibitors.edit', compact('countries', 'exhibitor'));
     }
 
     public function update(UpdateExhibitorRequest $request, Exhibitor $exhibitor)
@@ -74,7 +71,7 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $exhibitor->load('company', 'country');
+        $exhibitor->load('country');
 
         return view('admin.exhibitors.show', compact('exhibitor'));
     }

@@ -23,12 +23,6 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.exhibitor.fields.company') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.company.fields.name') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.exhibitor.fields.name') }}
                         </th>
                         <th>
@@ -65,12 +59,6 @@
                         <tr data-entry-id="{{ $exhibitor->id }}">
                             <td>
 
-                            </td>
-                            <td>
-                                {{ $exhibitor->company->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $exhibitor->company->name ?? '' }}
                             </td>
                             <td>
                                 {{ $exhibitor->name ?? '' }}
