@@ -73,4 +73,14 @@ class Exhibitor extends Model implements HasMedia
 
         return $file;
     }
+
+    public function exhibitorDocument()
+    {
+        return $this->hasMany(ExhibitorDocument::class, 'exhibitor_id', 'id');
+    }
+
+    public function exhibitorVideo()
+    {
+        return $this->hasMany(ExhibitorVideo::class, 'exhibitor_id', 'id');
+    }
 }

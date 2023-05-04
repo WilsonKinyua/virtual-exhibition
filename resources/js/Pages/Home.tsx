@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Layout from "../components/Layout";
 import { Link } from "@inertiajs/react";
-export default function Home() {
+export default function Home({ exhibitors }: { exhibitors: [] }) {
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [startX, setStartX] = useState<number | null>(null);
     const [scrollLeft, setScrollLeft] = useState<number>(0);
@@ -35,30 +35,16 @@ export default function Home() {
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                     >
-                        <Link href="/exhibitor/amref/details">
-                            <img
-                                className="three_d_view_img"
-                                src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2020/03/06/692052/296493/exhibition_stand_three_sides_open_stall_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3100277_o.jpg"
-                                alt=""
-                                title="Scroll to view more"
-                            />
-                        </Link>
-                        <Link href="/exhibitor/amref/details">
-                            <img
-                                className="three_d_view_img"
-                                src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2020/03/06/692052/296502/exhibition_stand_three_sides_open_stall_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3100465_o.jpg"
-                                alt=""
-                                title="Scroll to view more"
-                            />
-                        </Link>
-                        <Link href="/exhibitor/amref/details">
-                            <img
-                                className="three_d_view_img"
-                                src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2020/03/06/692052/296502/exhibition_stand_three_sides_open_stall_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3100464_o.jpg"
-                                alt=""
-                                title="Scroll to view more"
-                            />
-                        </Link>
+                        {exhibitors.map((exhibitor: { [x: string]: any }) => (
+                            <Link href={`/exhibitor/${exhibitor.slug}/details`}>
+                                <img
+                                    className="three_d_view_img"
+                                    src={exhibitor.banner.original_url}
+                                    alt={exhibitor.name}
+                                    title="Scroll to view more"
+                                />
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -71,26 +57,17 @@ export default function Home() {
                             </h5>
                             <div className="card-body">
                                 <ul>
-                                    <li>
-                                        <Link href="/exhibitor/amref/details">
-                                            Amref Enterprises
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/exhibitor/amref/details">
-                                            Amref Enterprises
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/exhibitor/amref/details">
-                                            Amref Enterprises
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link href="/exhibitor/amref/details">
-                                            Amref Enterprises
-                                        </Link>
-                                    </li>
+                                    {exhibitors.map(
+                                        (exhibitor: { [x: string]: any }) => (
+                                            <li>
+                                                <Link
+                                                    href={`/exhibitor/${exhibitor.slug}/details`}
+                                                >
+                                                    {exhibitor.name}
+                                                </Link>
+                                            </li>
+                                        )
+                                    )}
                                 </ul>
                             </div>
                         </div>
@@ -120,7 +97,17 @@ export default function Home() {
                     </div>
                     <div className="col-md-4">
                         <div className="card">
-                            <div className="card-body pt-3"></div>
+                            <div className="card-body pt-3 logos_landing text-center">
+                                {exhibitors.map(
+                                    (exhibitor: { [x: string]: any }) => (
+                                        <img
+                                            src={exhibitor.logo.original_url}
+                                            alt={exhibitor.name}
+                                            title="Scroll to view more"
+                                        />
+                                    )
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

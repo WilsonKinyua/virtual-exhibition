@@ -11,7 +11,7 @@ class CreateExhibitorsTable extends Migration
         Schema::create('exhibitors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->integer('status')->nullable();
+            $table->boolean('status')->default(0)->nullable();
             $table->longText('description')->nullable();
             $table->string('slug')->nullable();
             $table->longText('website_url')->nullable();

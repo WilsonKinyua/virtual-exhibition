@@ -3,19 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Chat;
-use LaravelDaily\LaravelCharts\Classes\LaravelChart;
+use App\Models\Exhibitor;
 use Inertia\Inertia;
 
 class HomeController
 {
     public function index()
     {
-        return Inertia::render('Home');
+        $exhibitors = Exhibitor::with(['country', 'media'])->get();
+        return Inertia::render('Home', [
+            'exhibitors' => $exhibitors
+        ]);
     }
 
     public function exhibitorDetails($slug)
     {
-        return Inertia::render('exhibitors/ExhibitorDetails');
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        return Inertia::render('exhibitors/ExhibitorDetails', [
+            'exhibitor' => $exhibitor->load('country', 'exhibitorDocument', 'exhibitorVideo')
+        ]);
     }
 
     public function chat()

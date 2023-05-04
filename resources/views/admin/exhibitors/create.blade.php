@@ -67,7 +67,7 @@
             </div>
             <div class="form-group">
                 <label for="website_url">{{ trans('cruds.exhibitor.fields.website_url') }}</label>
-                <textarea class="form-control {{ $errors->has('website_url') ? 'is-invalid' : '' }}" name="website_url" id="website_url">{{ old('website_url') }}</textarea>
+                <textarea class="form-control {{ $errors->has('website_url') ? 'is-invalid' : '' }}" rows="2" name="website_url" id="website_url">{{ old('website_url') }}</textarea>
                 @if($errors->has('website_url'))
                     <div class="invalid-feedback">
                         {{ $errors->first('website_url') }}

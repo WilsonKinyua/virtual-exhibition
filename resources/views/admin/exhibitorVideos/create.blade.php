@@ -67,9 +67,9 @@
     headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"
     },
-    params: {
-      size: 200
-    },
+    // params: {
+    //   size: 200
+    // },
     success: function (file, response) {
       $('form').find('input[name="video"]').remove()
       $('form').append('<input type="hidden" name="video" value="' + response.name + '">')

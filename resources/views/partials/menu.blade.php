@@ -27,7 +27,18 @@
             </li>
         @endcan
         @can('chat_management_access')
-            <li
+            @can('chat_room_access')
+                <li class="c-sidebar-nav-item">
+                    <a href="{{ route('admin.chat-rooms.index') }}"
+                        class="c-sidebar-nav-link {{ request()->is('admin/chat-rooms') || request()->is('admin/chat-rooms/*') ? 'c-active' : '' }}">
+                        <i class="fa-fw fas fa-comments c-sidebar-nav-icon">
+
+                        </i>
+                        {{ trans('cruds.chatRoom.title') }}
+                    </a>
+                </li>
+            @endcan
+            {{-- <li
                 class="c-sidebar-nav-dropdown {{ request()->is('admin/chat-rooms*') ? 'c-show' : '' }} {{ request()->is('admin/chats*') ? 'c-show' : '' }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-comment c-sidebar-nav-icon">
@@ -59,7 +70,7 @@
                         </li>
                     @endcan
                 </ul>
-            </li>
+            </li> --}}
         @endcan
         @can('exhibitor_management_access')
             <li

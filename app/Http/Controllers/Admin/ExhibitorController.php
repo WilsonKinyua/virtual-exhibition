@@ -13,6 +13,7 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class ExhibitorController extends Controller
 {
@@ -38,6 +39,8 @@ class ExhibitorController extends Controller
 
     public function store(StoreExhibitorRequest $request)
     {
+        $request->request->add(['slug' => Str::slug($request->name, '-')]);
+
         $exhibitor = Exhibitor::create($request->all());
 
         if ($request->input('banner', false)) {
@@ -71,7 +74,7 @@ class ExhibitorController extends Controller
         $exhibitor->update($request->all());
 
         if ($request->input('banner', false)) {
-            if (! $exhibitor->banner || $request->input('banner') !== $exhibitor->banner->file_name) {
+            if (!$exhibitor->banner || $request->input('banner') !== $exhibitor->banner->file_name) {
                 if ($exhibitor->banner) {
                     $exhibitor->banner->delete();
                 }
@@ -82,7 +85,7 @@ class ExhibitorController extends Controller
         }
 
         if ($request->input('logo', false)) {
-            if (! $exhibitor->logo || $request->input('logo') !== $exhibitor->logo->file_name) {
+            if (!$exhibitor->logo || $request->input('logo') !== $exhibitor->logo->file_name) {
                 if ($exhibitor->logo) {
                     $exhibitor->logo->delete();
                 }
