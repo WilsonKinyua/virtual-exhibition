@@ -6,6 +6,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\Chat;
 use App\Models\Exhibitor;
 use App\Models\ExhibitorVideo;
+use App\Models\User;
 use Inertia\Inertia;
 use Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,7 @@ class HomeController
 
     public function exhibitorVideoCreate($slug)
     {
-        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('exhibitor_video_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $exhibitor = Exhibitor::where('slug', $slug)->first();
         if (!$exhibitor) {
@@ -62,6 +63,65 @@ class HomeController
             return redirect()->route('home');
         }
         return view('admin.exhibitors.add-video', compact('exhibitor'));
+    }
+
+    public function exhibitorDocumentCreate($slug)
+    {
+        abort_if(Gate::denies('exhibitor_document_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+        return view('admin.exhibitors.add-document', compact('exhibitor'));
+    }
+
+    public function exhibitorAdminRemove($userSlug, $exhibitorSlug)
+    {
+        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $exhibitorSlug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+        $user = User::where('slug', $userSlug)->first();
+        if (!$user) {
+            return redirect()->route('home');
+        }
+        $exhibitor->admins()->detach($user->id);
+        return redirect()->back()->with('message', 'Admin Removed Successfully');
+    }
+
+    public function exhibitorAdminAdd(Request $request, $slug)
+    {
+        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'User Not Found. Request user to register first');
+        }
+        // check if the user is already an admin
+        if ($exhibitor->admins()->where('id', $user->id)->count() > 0) {
+            return redirect()->back()->with('error', 'User is already an admin');
+        }
+        $exhibitor->admins()->attach($user->id);
+        return redirect()->back()->with('message', 'Admin Added Successfully');
     }
 
     public function exhibitorAccountEdit($slug)

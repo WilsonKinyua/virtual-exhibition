@@ -141,6 +141,64 @@
                     </div>
                 </div>
             </div>
+            @can('exhibitor_access')
+                @can('exhibitor_document_create')
+                    <div style="margin-bottom: 10px;" class="row">
+                        <div class="col-lg-12">
+                            <button class="btn btn-success float-right" data-toggle="modal" data-target="#addUserAdminModal"
+                                href="{{ route('exhibitor-document-create', $exhibitor->slug) }}">
+                                Add Admin
+                            </button>
+                        </div>
+                    </div>
+                    @include('modals.add-exhibitor-admin')
+                @endcan
+                <div class="card">
+                    <div class="card-header">
+                        Admins
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table
+                                class=" table table-bordered table-striped table-hover datatable datatable-ExhibitorDocument">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($exhibitor->admins as $admin)
+                                        <tr>
+                                            <td>
+                                                {{ $admin->name }}
+                                            </td>
+                                            <td>
+                                                {{ $admin->email }}
+                                            </td>
+                                            <td>
+                                                @can('exhibitor_edit')
+                                                    <a class="btn btn-xs btn-danger"
+                                                        href="{{ route('admin-remove', [$admin->slug, $exhibitor->slug]) }}">
+                                                        Remove
+                                                    </a>
+                                                @endcan
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @endcan
             @can('chat_room_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
@@ -151,6 +209,7 @@
                 </div>
                 @include('modals.create-chat-room')
             @endcan
+
             <div class="card">
                 <div class="card-header">
                     {{ trans('cruds.chatRoom.title_singular') }} {{ trans('global.list') }}
@@ -163,9 +222,6 @@
                                 <tr>
                                     <th>
                                         {{ trans('cruds.chatRoom.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.chatRoom.fields.exhibitor') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.chatRoom.fields.status') }}
@@ -186,9 +242,6 @@
                                     <tr data-entry-id="{{ $chatRoom->id }}">
                                         <td>
                                             {{ $chatRoom->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $chatRoom->exhibitor->name ?? '' }}
                                         </td>
                                         <td>
                                             @if ($chatRoom->status == 1)
@@ -229,7 +282,8 @@
             @can('exhibitor_video_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
-                        <a class="btn btn-success float-right" href="{{ route('exhibitor-video-create',$exhibitor->slug) }}">
+                        <a class="btn btn-success float-right"
+                            href="{{ route('exhibitor-video-create', $exhibitor->slug) }}">
                             {{ trans('global.add') }} Video
                         </a>
                     </div>
@@ -244,9 +298,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-ExhibitorVideo">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.exhibitorVideo.fields.exhibitor') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.exhibitorVideo.fields.title') }}
                                     </th>
@@ -265,9 +316,6 @@
                                 @foreach ($exhibitorVideos as $key => $exhibitorVideo)
                                     <tr data-entry-id="{{ $exhibitorVideo->id }}">
                                         <td>
-                                            {{ $exhibitorVideo->exhibitor->name ?? '' }}
-                                        </td>
-                                        <td>
                                             {{ $exhibitorVideo->title ?? '' }}
                                         </td>
                                         <td>
@@ -282,12 +330,12 @@
                                         </td>
                                         <td>
 
-                                            @can('exhibitor_video_edit')
+                                            {{-- @can('exhibitor_video_edit')
                                                 <a class="btn btn-xs btn-info"
                                                     href="{{ route('admin.exhibitor-videos.edit', $exhibitorVideo->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
-                                            @endcan
+                                            @endcan --}}
 
                                             @can('exhibitor_video_delete')
                                                 <form
@@ -315,7 +363,8 @@
             @can('exhibitor_document_create')
                 <div style="margin-bottom: 10px;" class="row">
                     <div class="col-lg-12">
-                        <a class="btn btn-success float-right" href="{{ route('admin.exhibitor-documents.create') }}">
+                        <a class="btn btn-success float-right"
+                            href="{{ route('exhibitor-document-create', $exhibitor->slug) }}">
                             {{ trans('global.add') }} Document
                         </a>
                     </div>
@@ -331,9 +380,6 @@
                             class=" table table-bordered table-striped table-hover datatable datatable-ExhibitorDocument">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.exhibitorDocument.fields.exhibitor') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.exhibitorDocument.fields.title') }}
                                     </th>
@@ -352,9 +398,6 @@
                                 @foreach ($exhibitorDocuments as $key => $exhibitorDocument)
                                     <tr data-entry-id="{{ $exhibitorDocument->id }}">
                                         <td>
-                                            {{ $exhibitorDocument->exhibitor->name ?? '' }}
-                                        </td>
-                                        <td>
                                             {{ $exhibitorDocument->title ?? '' }}
                                         </td>
                                         <td>
@@ -368,12 +411,12 @@
                                             {{ $exhibitorDocument->created_at ?? '' }}
                                         </td>
                                         <td>
-                                            @can('exhibitor_document_edit')
+                                            {{-- @can('exhibitor_document_edit')
                                                 <a class="btn btn-xs btn-info"
                                                     href="{{ route('admin.exhibitor-documents.edit', $exhibitorDocument->id) }}">
                                                     Edit
                                                 </a>
-                                            @endcan
+                                            @endcan --}}
                                             @can('exhibitor_document_delete')
                                                 <form
                                                     action="{{ route('admin.exhibitor-documents.destroy', $exhibitorDocument->id) }}"

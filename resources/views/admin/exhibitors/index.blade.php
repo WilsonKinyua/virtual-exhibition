@@ -118,7 +118,7 @@
 
                                     @can('exhibitor_edit')
                                         <a class="btn btn-xs btn-info"
-                                            href="{{ route('admin.exhibitors.edit', $exhibitor->slug) }}">
+                                            href="{{ route('admin.exhibitors.edit', $exhibitor->id) }}">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan

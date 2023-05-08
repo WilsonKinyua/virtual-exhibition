@@ -48,7 +48,7 @@ class ExhibitorDocumentController extends Controller
             Media::whereIn('id', $media)->update(['model_id' => $exhibitorDocument->id]);
         }
 
-        return redirect()->route('admin.exhibitor-documents.index');
+        return redirect()->back()->with('message', 'Document added successfully');
     }
 
     public function edit(ExhibitorDocument $exhibitorDocument)
@@ -67,7 +67,7 @@ class ExhibitorDocumentController extends Controller
         $exhibitorDocument->update($request->all());
 
         if ($request->input('document', false)) {
-            if (! $exhibitorDocument->document || $request->input('document') !== $exhibitorDocument->document->file_name) {
+            if (!$exhibitorDocument->document || $request->input('document') !== $exhibitorDocument->document->file_name) {
                 if ($exhibitorDocument->document) {
                     $exhibitorDocument->document->delete();
                 }

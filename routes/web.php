@@ -21,6 +21,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('chat', 'HomeController@chat')->name('chat');
     Route::get('chat-room/{slug}/status', 'HomeController@statusChatRoom')->name('chat-room.status');
     Route::get('exhibitor-video/{slug}/create', 'HomeController@exhibitorVideoCreate')->name('exhibitor-video-create');
+    Route::get('exhibitor-document/{slug}/create', 'HomeController@exhibitorDocumentCreate')->name('exhibitor-document-create');
+    Route::post('exhibitor/admin/{exhibitorSlug}/add', 'HomeController@exhibitorAdminAdd')->name('admin-add');
+    Route::get('exhibitor/{userSlug}/admin/{exhibitorSlug}/remove', 'HomeController@exhibitorAdminRemove')->name('admin-remove');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', 'HomeController@dashboard')->name('dashboard');
