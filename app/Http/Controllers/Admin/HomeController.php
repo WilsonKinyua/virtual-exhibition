@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\Chat;
 use App\Models\Exhibitor;
+use App\Models\ExhibitorVideo;
 use Inertia\Inertia;
+use Gate;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController
 {
@@ -23,8 +29,85 @@ class HomeController
             return redirect()->route('home');
         }
         return Inertia::render('exhibitors/ExhibitorDetails', [
-            'exhibitor' => $exhibitor->load('country', 'exhibitorDocument', 'exhibitorVideo')
+            'exhibitor' => $exhibitor->load('country', 'exhibitorDocument', 'exhibitorVideo', 'admins'),
+            "user" => auth()->user()
         ]);
+    }
+
+    public function statusChatRoom($slug)
+    {
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        $chatRoom = $exhibitor->chatRooms()->first();
+        if (!$chatRoom) {
+            return redirect()->route('home');
+        }
+        $chatRoom->status = !$chatRoom->status;
+        $chatRoom->save();
+        return redirect()->back()->with('message', 'Chat Room Status Updated Successfully');
+    }
+
+    public function exhibitorVideoCreate($slug)
+    {
+        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+        return view('admin.exhibitors.add-video', compact('exhibitor'));
+    }
+
+    public function exhibitorAccountEdit($slug)
+    {
+        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+        $exhibitorDocuments = $exhibitor->exhibitorDocument()->get();
+        $exhibitorVideos = $exhibitor->exhibitorVideo()->get();
+        $chatRooms = $exhibitor->chatRooms()->get();
+        return view('edit-exhibitor', compact('exhibitor', 'exhibitorDocuments', 'exhibitorVideos', 'chatRooms'));
+    }
+
+    public function exhibitorVideoUpload(Request $request, $slug)
+    {
+        abort_if(Gate::denies('exhibitor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        if (!$exhibitor) {
+            return redirect()->route('home');
+        }
+        // check if the user is the owner of the exhibitor or assigned as admin to the exhibitor
+        if ($exhibitor->admins()->where('id', auth()->user()->id)->count() == 0 && $exhibitor->user_id != auth()->user()->id) {
+            return redirect()->route('home');
+        }
+
+        $request->request->add(['exhibitor_id' => $exhibitor->id]);
+
+        $exhibitorVideo = ExhibitorVideo::create($request->all());
+
+        if ($request->input('video', false)) {
+            $exhibitorVideo->addMedia(storage_path('tmp/uploads/' . basename($request->input('video'))))->toMediaCollection('video');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $exhibitorVideo->id]);
+        }
+
+        return redirect()->back()->with('success', 'Video uploaded successfully');
     }
 
     public function chat()
@@ -36,6 +119,8 @@ class HomeController
 
     public function dashboard()
     {
+        abort_if(Gate::denies('dashboard_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $settings1 = [
             'chart_title'           => 'Users',
             'chart_type'            => 'number_block',

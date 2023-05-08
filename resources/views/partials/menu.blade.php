@@ -15,7 +15,7 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
-        @can('country_access')
+        {{-- @can('country_access')
             <li class="c-sidebar-nav-item">
                 <a href="{{ route('admin.countries.index') }}"
                     class="c-sidebar-nav-link {{ request()->is('admin/countries') || request()->is('admin/countries/*') ? 'c-active' : '' }}">
@@ -25,7 +25,7 @@
                     {{ trans('cruds.country.title') }}
                 </a>
             </li>
-        @endcan
+        @endcan --}}
         @can('chat_management_access')
             @can('chat_room_access')
                 <li class="c-sidebar-nav-item">

@@ -48,7 +48,7 @@ class ExhibitorVideoController extends Controller
             Media::whereIn('id', $media)->update(['model_id' => $exhibitorVideo->id]);
         }
 
-        return redirect()->route('admin.exhibitor-videos.index');
+        return redirect()->back()->with('message', 'Video Created Successfully');
     }
 
     public function edit(ExhibitorVideo $exhibitorVideo)
@@ -67,7 +67,7 @@ class ExhibitorVideoController extends Controller
         $exhibitorVideo->update($request->all());
 
         if ($request->input('video', false)) {
-            if (! $exhibitorVideo->video || $request->input('video') !== $exhibitorVideo->video->file_name) {
+            if (!$exhibitorVideo->video || $request->input('video') !== $exhibitorVideo->video->file_name) {
                 if ($exhibitorVideo->video) {
                     $exhibitorVideo->video->delete();
                 }

@@ -9,6 +9,7 @@ use App\Http\Requests\StoreExhibitorRequest;
 use App\Http\Requests\UpdateExhibitorRequest;
 use App\Models\Country;
 use App\Models\Exhibitor;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -23,7 +24,7 @@ class ExhibitorController extends Controller
     {
         abort_if(Gate::denies('exhibitor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $exhibitors = Exhibitor::with(['country', 'media'])->get();
+        $exhibitors = Exhibitor::with(['country', 'admins', 'media'])->get();
 
         return view('admin.exhibitors.index', compact('exhibitors'));
     }
@@ -34,7 +35,9 @@ class ExhibitorController extends Controller
 
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.exhibitors.create', compact('countries'));
+        $admins = User::pluck('name', 'id');
+
+        return view('admin.exhibitors.create', compact('admins', 'countries'));
     }
 
     public function store(StoreExhibitorRequest $request)
@@ -42,7 +45,7 @@ class ExhibitorController extends Controller
         $request->request->add(['slug' => Str::slug($request->name, '-')]);
 
         $exhibitor = Exhibitor::create($request->all());
-
+        $exhibitor->admins()->sync($request->input('admins', []));
         if ($request->input('banner', false)) {
             $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
         }
@@ -64,24 +67,32 @@ class ExhibitorController extends Controller
 
         $countries = Country::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $exhibitor->load('country');
+        $admins = User::pluck('name', 'id');
 
-        return view('admin.exhibitors.edit', compact('countries', 'exhibitor'));
+        $exhibitor->load('country', 'admins');
+
+        return view('admin.exhibitors.edit', compact('admins', 'countries', 'exhibitor'));
     }
 
-    public function update(UpdateExhibitorRequest $request, Exhibitor $exhibitor)
+    public function update(UpdateExhibitorRequest $request, $slug)
     {
+        $exhibitor = Exhibitor::where('slug', $slug)->first();
+        abort_if(!$exhibitor, 404);
         $exhibitor->update($request->all());
-
-        if ($request->input('banner', false)) {
-            if (!$exhibitor->banner || $request->input('banner') !== $exhibitor->banner->file_name) {
-                if ($exhibitor->banner) {
-                    $exhibitor->banner->delete();
+        if ($request->admins != null) {
+            $exhibitor->admins()->sync($request->input('admins', []));
+        }
+        if ($request->banner != null) {
+            if ($request->input('banner', false)) {
+                if (!$exhibitor->banner || $request->input('banner') !== $exhibitor->banner->file_name) {
+                    if ($exhibitor->banner) {
+                        $exhibitor->banner->delete();
+                    }
+                    $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
                 }
-                $exhibitor->addMedia(storage_path('tmp/uploads/' . basename($request->input('banner'))))->toMediaCollection('banner');
+            } elseif ($exhibitor->banner) {
+                $exhibitor->banner->delete();
             }
-        } elseif ($exhibitor->banner) {
-            $exhibitor->banner->delete();
         }
 
         if ($request->input('logo', false)) {
@@ -95,14 +106,14 @@ class ExhibitorController extends Controller
             $exhibitor->logo->delete();
         }
 
-        return redirect()->route('admin.exhibitors.index');
+        return redirect()->back()->with('message', 'Profile updated successfully.');
     }
 
     public function show(Exhibitor $exhibitor)
     {
         abort_if(Gate::denies('exhibitor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $exhibitor->load('country');
+        $exhibitor->load('country', 'admins');
 
         return view('admin.exhibitors.show', compact('exhibitor'));
     }

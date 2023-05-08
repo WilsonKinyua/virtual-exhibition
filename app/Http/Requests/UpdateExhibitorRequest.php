@@ -20,7 +20,7 @@ class UpdateExhibitorRequest extends FormRequest
             'name' => [
                 'string',
                 'required',
-                'unique:exhibitors,name,' . request()->route('exhibitor')->id,
+                'unique:exhibitors,name,',
             ],
             'status' => [
                 'nullable',
@@ -29,10 +29,17 @@ class UpdateExhibitorRequest extends FormRequest
                 'max:2147483647',
             ],
             'banner' => [
-                'required',
+                // 'required',
             ],
             'logo' => [
                 'required',
+            ],
+            'admins.*' => [
+                'integer',
+            ],
+            'admins' => [
+                // 'required',
+                'array',
             ],
         ];
     }

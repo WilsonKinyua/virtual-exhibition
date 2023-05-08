@@ -103,6 +103,16 @@
                             {{ $exhibitor->linkedin_url }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.exhibitor.fields.admins') }}
+                        </th>
+                        <td>
+                            @foreach($exhibitor->admins as $key => $admins)
+                                <span class="label label-info">{{ $admins->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

@@ -83,4 +83,14 @@ class Exhibitor extends Model implements HasMedia
     {
         return $this->hasMany(ExhibitorVideo::class, 'exhibitor_id', 'id');
     }
+
+    public function ChatRooms()
+    {
+        return $this->hasMany(ChatRoom::class, 'exhibitor_id', 'id');
+    }
+
+    public function admins()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

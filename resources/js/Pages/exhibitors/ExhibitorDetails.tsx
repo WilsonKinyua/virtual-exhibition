@@ -4,14 +4,25 @@ import parse from "html-react-parser";
 import ReactPlayer from "react-player";
 import Layout from "../../components/Layout";
 
-export default function ExhibitorDetails({ exhibitor }: { exhibitor: any }) {
+export default function ExhibitorDetails({
+    exhibitor,
+    user,
+}: {
+    exhibitor: any;
+    user: any;
+}) {
+    console.log(user);
     console.log(exhibitor);
     return (
         <Layout>
             <div className="three_d_view exhibitor-details">
                 <div className="container">
                     <img
-                        src={exhibitor.banner.original_url}
+                        src={
+                            exhibitor.banner
+                                ? exhibitor.banner.original_url
+                                : ""
+                        }
                         alt={exhibitor.name}
                         title={exhibitor.name}
                     />
@@ -20,7 +31,7 @@ export default function ExhibitorDetails({ exhibitor }: { exhibitor: any }) {
             <div className="container" style={{ paddingBottom: "50px" }}>
                 <div className="center-navbar">
                     <div className="row">
-                        <div className="col-md-12 text-center">
+                        <div className="col-md-10 text-center">
                             <ul>
                                 <li>
                                     <a
@@ -59,6 +70,20 @@ export default function ExhibitorDetails({ exhibitor }: { exhibitor: any }) {
                                 </li>
                             </ul>
                         </div>
+                        {exhibitor.admins.map((admin: any) => {
+                            if (admin.id === user.id) {
+                                return (
+                                    <div className="col-md-2 text-center">
+                                        <a
+                                            href={`/profile/${exhibitor.slug}/exhibitor`}
+                                            className="btn btn-sm mt-2 btn-primary"
+                                        >
+                                            Edit This Profile
+                                        </a>
+                                    </div>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
                 <div className="tabs mt-3 bg-white">

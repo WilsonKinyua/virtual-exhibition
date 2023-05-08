@@ -176,6 +176,24 @@ a {
     }
 }
 
+.btn-primary {
+    background-color: var(--clr-theme-1);
+    color: #fff;
+    border: 1px solid var(--clr-primary-1);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: var(--bd-fs-p);
+    font-weight: var(--bd-fw-bold);
+    cursor: pointer;
+    transition: all 0.3s ease-out 0s;
+
+    &:hover {
+        background-color: var(--clr-theme-2);
+        color: #fff;
+        border: 1px solid var(--clr-primary-2);
+    }
+}
+
 a,
 .btn,
 button,

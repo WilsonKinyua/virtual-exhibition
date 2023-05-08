@@ -47,6 +47,9 @@
                                 {{ trans('cruds.exhibitor.fields.linkedin_url') }}
                             </th>
                             <th>
+                                {{ trans('cruds.exhibitor.fields.admins') }}
+                            </th>
+                            <th>
                                 {{ trans('cruds.exhibitor.fields.created_at') }}
                             </th>
                             <th>
@@ -98,7 +101,12 @@
                                     <a href="{{ $exhibitor->linkedin_url ?? '' }}" target="_blank" rel="noopener noreferrer">View</a>
                                 </td>
                                 <td>
-                                    {{ $exhibitor->created_at->diffForHumans() ?? '' }}
+                                    @foreach ($exhibitor->admins as $key => $item)
+                                        <span class="badge badge-info">{{ $item->name }}</span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    {{ $exhibitor->created_at ?? '' }}
                                 </td>
                                 <td>
                                     @can('exhibitor_show')
@@ -110,7 +118,7 @@
 
                                     @can('exhibitor_edit')
                                         <a class="btn btn-xs btn-info"
-                                            href="{{ route('admin.exhibitors.edit', $exhibitor->id) }}">
+                                            href="{{ route('admin.exhibitors.edit', $exhibitor->slug) }}">
                                             {{ trans('global.edit') }}
                                         </a>
                                     @endcan

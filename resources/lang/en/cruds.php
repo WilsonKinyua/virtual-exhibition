@@ -115,6 +115,8 @@ return [
             'banner_helper'       => ' ',
             'logo'                => 'Logo',
             'logo_helper'         => ' ',
+            'admins'              => 'Admins',
+            'admins_helper'       => ' ',
         ],
     ],
     'exhibitorManagement' => [

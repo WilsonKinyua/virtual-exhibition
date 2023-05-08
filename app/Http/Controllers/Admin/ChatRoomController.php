@@ -10,7 +10,7 @@ use App\Models\ChatRoom;
 use App\Models\Exhibitor;
 use App\Models\User;
 use Gate;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class ChatRoomController extends Controller
@@ -37,9 +37,10 @@ class ChatRoomController extends Controller
 
     public function store(StoreChatRoomRequest $request)
     {
+        $request->request->add(['created_by_id' => auth()->user()->id, 'slug' => Str::slug($request->name, '-')]);
         $chatRoom = ChatRoom::create($request->all());
 
-        return redirect()->route('admin.chat-rooms.index');
+        return redirect()->back()->with('message', 'Chat Room Created Successfully');
     }
 
     public function edit(ChatRoom $chatRoom)

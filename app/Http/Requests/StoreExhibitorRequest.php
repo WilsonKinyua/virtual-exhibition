@@ -28,6 +28,13 @@ class StoreExhibitorRequest extends FormRequest
             'logo' => [
                 'required',
             ],
+            'admins.*' => [
+                'integer',
+            ],
+            'admins' => [
+                'required',
+                'array',
+            ],
         ];
     }
 }

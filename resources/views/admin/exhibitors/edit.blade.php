@@ -107,6 +107,24 @@
                 <span class="help-block">{{ trans('cruds.exhibitor.fields.linkedin_url_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="admins">{{ trans('cruds.exhibitor.fields.admins') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('admins') ? 'is-invalid' : '' }}" name="admins[]" id="admins" multiple required>
+                    @foreach($admins as $id => $admin)
+                        <option value="{{ $id }}" {{ (in_array($id, old('admins', [])) || $exhibitor->admins->contains($id)) ? 'selected' : '' }}>{{ $admin }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('admins'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('admins') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.exhibitor.fields.admins_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

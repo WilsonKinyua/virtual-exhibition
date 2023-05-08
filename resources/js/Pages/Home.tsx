@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import Layout from "../components/Layout";
 import { Link } from "@inertiajs/react";
 export default function Home({ exhibitors }: { exhibitors: [] }) {
+    console.log(exhibitors);
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [startX, setStartX] = useState<number | null>(null);
     const [scrollLeft, setScrollLeft] = useState<number>(0);
@@ -35,16 +36,23 @@ export default function Home({ exhibitors }: { exhibitors: [] }) {
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                     >
-                        {exhibitors.map((exhibitor: { [x: string]: any }) => (
-                            <Link href={`/exhibitor/${exhibitor.slug}/details`}>
-                                <img
-                                    className="three_d_view_img"
-                                    src={exhibitor.banner.original_url}
-                                    alt={exhibitor.name}
-                                    title="Scroll to view more"
-                                />
-                            </Link>
-                        ))}
+                        {exhibitors.map((exhibitor: { [x: string]: any }) => {
+                            if (exhibitor.banner != null) {
+                                return (
+                                    <Link
+                                        key={exhibitor.id}
+                                        href={`/exhibitor/${exhibitor.slug}/details`}
+                                    >
+                                        <img
+                                            className="three_d_view_img"
+                                            src={exhibitor.banner.original_url}
+                                            alt={exhibitor.name}
+                                            title="Scroll to view more"
+                                        />
+                                    </Link>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
             </div>
@@ -59,7 +67,7 @@ export default function Home({ exhibitors }: { exhibitors: [] }) {
                                 <ul>
                                     {exhibitors.map(
                                         (exhibitor: { [x: string]: any }) => (
-                                            <li>
+                                            <li key={exhibitor.id}>
                                                 <Link
                                                     href={`/exhibitor/${exhibitor.slug}/details`}
                                                 >
@@ -101,6 +109,7 @@ export default function Home({ exhibitors }: { exhibitors: [] }) {
                                 {exhibitors.map(
                                     (exhibitor: { [x: string]: any }) => (
                                         <img
+                                            key={exhibitor.id}
                                             src={exhibitor.logo.original_url}
                                             alt={exhibitor.name}
                                             title="Scroll to view more"
