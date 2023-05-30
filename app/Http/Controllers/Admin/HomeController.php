@@ -17,7 +17,7 @@ class HomeController
 {
     public function index()
     {
-        $exhibitors = Exhibitor::with(['country', 'media'])->get();
+        $exhibitors = Exhibitor::with(['country', 'media'])->orderBy("id","desc")->get();
         return Inertia::render('Home', [
             'exhibitors' => $exhibitors
         ]);

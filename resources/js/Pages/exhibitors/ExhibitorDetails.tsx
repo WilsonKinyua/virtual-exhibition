@@ -17,15 +17,21 @@ export default function ExhibitorDetails({
         <Layout>
             <div className="three_d_view exhibitor-details">
                 <div className="container">
-                    <img
-                        src={
-                            exhibitor.banner
-                                ? exhibitor.banner.original_url
-                                : ""
-                        }
-                        alt={exhibitor.name}
-                        title={exhibitor.name}
-                    />
+                    <a
+                        href="https://www.youtube.com/watch?v=JkaxUblCGz0&t=4s&pp=ygUMcGxhbmV0IGVhcnRo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img
+                            src={
+                                exhibitor.banner
+                                    ? exhibitor.banner.original_url
+                                    : ""
+                            }
+                            alt={exhibitor.name}
+                            title={exhibitor.name}
+                        />
+                    </a>
                 </div>
             </div>
             <div className="container" style={{ paddingBottom: "50px" }}>

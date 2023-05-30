@@ -28,7 +28,7 @@ export default function Home({ exhibitors }: { exhibitors: [] }) {
 
     return (
         <Layout>
-            <div className="three_d_view">
+            {/* <div className="three_d_view">
                 <div className="container" ref={containerRef}>
                     <div
                         className="three_d_view_img_list"
@@ -55,6 +55,100 @@ export default function Home({ exhibitors }: { exhibitors: [] }) {
                         })}
                     </div>
                 </div>
+            </div> */}
+            <div id="carouselExample" className="carousel slide">
+                <div className="carousel-inner">
+                    {exhibitors.map(
+                        (exhibitor: { [x: string]: any }, index) => {
+                            if (exhibitor.banner != null && index == 0) {
+                                return (
+                                    <a
+                                        href="https://www.youtube.com/watch?v=JkaxUblCGz0&t=4s&pp=ygUMcGxhbmV0IGVhcnRo"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <div className="carousel-item active">
+                                            <img
+                                                src={
+                                                    exhibitor.banner
+                                                        .original_url
+                                                }
+                                                className="d-block w-100 three_d_view_img"
+                                                alt={exhibitor.name}
+                                                title="Click to watch video"
+                                            />
+                                            <Link
+                                                key={exhibitor.id}
+                                                href={`/exhibitor/${exhibitor.slug}/details`}
+                                                className="btn btn-primary btn-lg w-100"
+                                            >
+                                                View Exhibitor{" "}
+                                                <i className="fa fa-arrow-right"></i>
+                                            </Link>
+                                        </div>
+                                    </a>
+                                );
+                            }
+                        }
+                    )}
+                    {exhibitors.map(
+                        (exhibitor: { [x: string]: any }, index) => {
+                            if (exhibitor.banner != null && index > 0) {
+                                return (
+                                    <a
+                                        href="https://www.youtube.com/watch?v=JkaxUblCGz0&t=4s&pp=ygUMcGxhbmV0IGVhcnRo"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <div className="carousel-item">
+                                            <img
+                                                src={
+                                                    exhibitor.banner
+                                                        .original_url
+                                                }
+                                                className="d-block w-100 three_d_view_img"
+                                                alt={exhibitor.name}
+                                                title="Click to watch video"
+                                            />
+                                            <Link
+                                                key={exhibitor.id}
+                                                href={`/exhibitor/${exhibitor.slug}/details`}
+                                                className="btn btn-primary btn-lg w-100"
+                                            >
+                                                View Exhibitor{" "}
+                                                <i className="fa fa-arrow-right"></i>
+                                            </Link>
+                                        </div>
+                                    </a>
+                                );
+                            }
+                        }
+                    )}
+                </div>
+                <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="prev"
+                >
+                    <span
+                        className="carousel-control-prev-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExample"
+                    data-bs-slide="next"
+                >
+                    <span
+                        className="carousel-control-next-icon"
+                        aria-hidden="true"
+                    ></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
             </div>
             <div className="container">
                 <div className="row intro">
