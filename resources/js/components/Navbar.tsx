@@ -22,10 +22,10 @@ export default function Navbar() {
                     <ul className="navbar-nav mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link className="nav-link" href="/">
-                                <i className="fa fa-list"></i> Auditorium
+                                Virtual Expo Platform
                             </Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" href="/">
                                 <i className="fa fa-briefcase"></i>{" "}
                                 Confrence Bag
@@ -66,7 +66,7 @@ export default function Navbar() {
                             <Link className="nav-link" href="/">
                                 <i className="fa fa-image"></i> Video Vault
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

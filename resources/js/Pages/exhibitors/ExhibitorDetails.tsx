@@ -11,8 +11,6 @@ export default function ExhibitorDetails({
     exhibitor: any;
     user: any;
 }) {
-    console.log(user);
-    console.log(exhibitor);
     return (
         <Layout>
             <div className="three_d_view exhibitor-details">
@@ -68,11 +66,6 @@ export default function ExhibitorDetails({
                                 </li>
                                 <li>
                                     <Link href="/chat">Chat</Link>
-                                </li>
-                                <li>
-                                    <Link href="/chat">
-                                        Reserve a Chat Slot
-                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -168,39 +161,36 @@ export default function ExhibitorDetails({
                                         </div>
                                         <div>
                                             <button
-                                                data-bs-toggle="modal"
-                                                data-bs-target={`#example${video.slug}Modal`}
                                                 className="btn btn-thm btn-lg btn-sm"
+                                                type="button"
+                                                data-bs-toggle="modal"
+                                                data-bs-target={`#${video.title
+                                                    .toLowerCase()
+                                                    .trim()
+                                                    .replace(/\s/g, "")}`}
                                             >
                                                 View
                                             </button>
                                         </div>
                                         <div
                                             className="modal fade"
-                                            id={`#example${video.slug}Modal`}
+                                            id={video.title
+                                                .toLowerCase()
+                                                .trim()
+                                                .replace(/\s/g, "")}
                                             tabIndex={-1}
                                             aria-labelledby="exampleModalLabel"
                                             aria-hidden="true"
                                         >
                                             <div className="modal-dialog modal-dialog-centered">
                                                 <div className="modal-content">
-                                                    {/* <div className="modal-header">
-                                                        <button
-                                                            type="button"
-                                                            className="btn-close"
-                                                            data-bs-dismiss="modal"
-                                                            aria-label="Close"
-                                                        ></button>
-                                                    </div> */}
-                                                    <div className="">
-                                                        <ReactPlayer
-                                                            controls={true}
-                                                            url={
-                                                                video.video
-                                                                    .original_url
-                                                            }
-                                                        />
-                                                    </div>
+                                                    <ReactPlayer
+                                                        controls={true}
+                                                        url={
+                                                            video.video
+                                                                .original_url
+                                                        }
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
