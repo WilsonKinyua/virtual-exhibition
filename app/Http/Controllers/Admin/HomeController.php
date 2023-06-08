@@ -176,7 +176,6 @@ class HomeController
         return Inertia::render('chat/Index', [
             "user" => auth()->user(),
             "chatRooms" => ChatRoom::all(),
-            "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
             "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender', 'receiver')->get()
         ]);
     }
@@ -196,10 +195,8 @@ class HomeController
         return Inertia::render('chat/DirectMessage', [
             "user" => auth()->user(),
             "chatRooms" => ChatRoom::all(),
-            "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
             "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender', 'receiver')->get(),
             "directMessageUser" => User::where("slug", $userSlug)->first(),
-            // "myDirectMessages" => Chat::where('sender_id', auth()->user()->id)->with('sender', 'receiver')->get(),
         ]);
     }
 
@@ -207,17 +204,30 @@ class HomeController
     {
         $request->validate([
             'message' => 'required',
-            'receiver' => 'required|exists:users,id',
+            'receiver' => 'exists:users,id',
+            "chat_room_id" => "exists:chat_rooms,id"
         ]);
 
-        $chat = Chat::create([
+        Chat::create([
             "sender_id" => auth()->user()->id,
-            "receiver_id" => $request->receiver,
+            "receiver_id" => $request->receiver ?? null,
+            "chat_room_id" => $request->chat_room_id ?? null,
             "message" => $request->message,
             "message_type" => "text"
         ]);
 
         return redirect()->back();
+    }
+
+    public function chatRoomConversation($chatRoomSlug)
+    {
+        return Inertia::render('chat/ChatRoomConversation', [
+            "user" => auth()->user(),
+            "chatRooms" => ChatRoom::all(),
+            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender', 'receiver')->get(),
+            "chatRoomChats" => Chat::where('chat_room_id', ChatRoom::where('slug', $chatRoomSlug)->first()->id)->with('sender', 'receiver',)->get(),
+            "exhibitorOwnerChatRoom" => ChatRoom::where('slug', $chatRoomSlug)->with('exhibitor')->first(),
+        ]);
     }
 
     public function dashboard()

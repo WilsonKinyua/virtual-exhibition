@@ -3,19 +3,16 @@ import ChatLayout from "../../components/ChatLayout";
 export default function Index({
     user,
     chatRooms,
-    joinUserChatRooms,
     chats,
 }: {
     user: any;
     chatRooms: any;
-    joinUserChatRooms: any;
     chats: any;
 }) {
     return (
         <ChatLayout
             user={user}
             chatRooms={chatRooms}
-            userJoinedChatRooms={joinUserChatRooms}
             chats={chats}
         >
             <div className="col-md-9 text-center">

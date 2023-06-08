@@ -5,13 +5,11 @@ import DirectMessageChatList from "../../components/DirectMessageChatList";
 export default function DirectMessage({
     user,
     chatRooms,
-    joinUserChatRooms,
     chats,
     directMessageUser,
 }: {
     user: any;
     chatRooms: any;
-    joinUserChatRooms: any;
     chats: any;
     directMessageUser: any;
 }) {
@@ -31,12 +29,7 @@ export default function DirectMessage({
         removeBackdrop();
     }, []);
     return (
-        <ChatLayout
-            user={user}
-            chatRooms={chatRooms}
-            userJoinedChatRooms={joinUserChatRooms}
-            chats={chats}
-        >
+        <ChatLayout user={user} chatRooms={chatRooms} chats={chats}>
             <DirectMessageChatList user={directMessageUser} chats={chats} />
         </ChatLayout>
     );

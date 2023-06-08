@@ -25,7 +25,7 @@ export default function DirectMessageChatList({
         messageRef.current!.value = "";
     };
     return (
-        <div className="col-md-9">
+        <div className="col-md-10">
             <div className="bg-light chat-body-list">
                 <div className="card">
                     <div className="card-body">

@@ -6,16 +6,13 @@ export default function ChatLayout({
     children,
     user,
     chatRooms,
-    userJoinedChatRooms,
     chats,
 }: {
     children: React.ReactNode;
     user: any;
     chatRooms: any;
-    userJoinedChatRooms: any;
     chats: any;
 }) {
-    // console.log(chats);
     const displayedChats: string[] = [];
     return (
         <>
@@ -130,11 +127,19 @@ export default function ChatLayout({
 
                                                 return null; // Don't render the chat if it's already displayed
                                             })}
+                                            {chats.length === 0 && (
+                                                <p className="text-center text-danger">
+                                                    <small>
+                                                        You have not started any
+                                                        chat
+                                                    </small>
+                                                </p>
+                                            )}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div className="card">
+                            {/* <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between chat-header">
                                         <h6 className="mt-2">
@@ -163,9 +168,17 @@ export default function ChatLayout({
                                                 </li>
                                             )
                                         )}
+                                        {userJoinedChatRooms.length === 0 && (
+                                            <p className="text-center text-danger">
+                                                <small>
+                                                    You have not joined any
+                                                    chatroom
+                                                </small>
+                                            </p>
+                                        )}
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between chat-header">
@@ -181,16 +194,22 @@ export default function ChatLayout({
                                         </div>
                                     </div>
                                     <ul className="chat-container">
-                                        {chatRooms.map((chatRoom: any) => (
-                                            <li key={chatRoom.id}>
-                                                <Link href="">
-                                                    <p className="text-capitalize">
-                                                        <i className="fa fa-check-circle"></i>{" "}
-                                                        {chatRoom.name}
-                                                    </p>
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        {chatRooms.map((chatRoom: any) => {
+                                            if (chatRoom.slug !== null) {
+                                                return (
+                                                    <li key={chatRoom.id}>
+                                                        <Link
+                                                            href={`/chat-room/${chatRoom.slug}/view-conversation`}
+                                                        >
+                                                            <p className="text-capitalize">
+                                                                <i className="fa fa-check-circle"></i>{" "}
+                                                                {chatRoom.name}
+                                                            </p>
+                                                        </Link>
+                                                    </li>
+                                                );
+                                            }
+                                        })}
                                     </ul>
                                 </div>
                             </div>
