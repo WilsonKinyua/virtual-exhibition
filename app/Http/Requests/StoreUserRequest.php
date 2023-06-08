@@ -46,6 +46,12 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'chat_rooms.*' => [
+                'integer',
+            ],
+            'chat_rooms' => [
+                'array',
+            ],
         ];
     }
 }

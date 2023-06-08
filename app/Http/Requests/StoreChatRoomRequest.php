@@ -27,7 +27,7 @@ class StoreChatRoomRequest extends FormRequest
                 'integer',
             ],
             'created_by_id' => [
-                // 'required',
+                'required',
                 'integer',
             ],
         ];

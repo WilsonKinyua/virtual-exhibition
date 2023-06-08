@@ -574,6 +574,11 @@ p.form-error {
     font-size: 13px;
 }
 
+.required::after {
+    content: " *";
+    color: red;
+}
+
 .navbar.navbar-expand-lg {
     .navbar-toggler {
         border-color: #fff;
@@ -594,6 +599,27 @@ p.form-error {
     }
 }
 
+.create-message {
+    margin-left: 6px;
+    padding: 3px;
+    color: #255946;
+    cursor: pointer;
+}
+
+.recipient-form {
+    input {
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 14px;
+        &:focus,
+        &:active {
+            outline: none;
+            box-shadow: none;
+            border: 1px solid #f8a507;
+        }
+    }
+}
+
 .exhibitor-details img {
     height: 80vh;
     background-position: 50% 50%;
@@ -606,7 +632,6 @@ p.form-error {
 .three_d_view_img_list {
     overflow-x: scroll;
     white-space: nowrap;
-
 }
 .three_d_view_img {
     display: inline-block;

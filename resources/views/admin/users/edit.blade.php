@@ -118,6 +118,24 @@
                 <span class="help-block">{{ trans('cruds.user.fields.roles_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="chat_rooms">{{ trans('cruds.user.fields.chat_room') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('chat_rooms') ? 'is-invalid' : '' }}" name="chat_rooms[]" id="chat_rooms" multiple>
+                    @foreach($chat_rooms as $id => $chat_room)
+                        <option value="{{ $id }}" {{ (in_array($id, old('chat_rooms', [])) || $user->chat_rooms->contains($id)) ? 'selected' : '' }}>{{ $chat_room }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('chat_rooms'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('chat_rooms') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.user.fields.chat_room_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

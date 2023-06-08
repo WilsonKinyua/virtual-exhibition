@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\ChatRoom;
 use App\Models\Country;
 use App\Models\Role;
 use App\Models\User;
@@ -22,7 +23,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['country', 'roles'])->get();
+        $users = User::with(['country', 'roles', 'chat_rooms'])->get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -35,13 +36,16 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        return view('admin.users.create', compact('countries', 'roles'));
+        $chat_rooms = ChatRoom::pluck('name', 'id');
+
+        return view('admin.users.create', compact('chat_rooms', 'countries', 'roles'));
     }
 
     public function store(StoreUserRequest $request)
     {
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $user->chat_rooms()->sync($request->input('chat_rooms', []));
 
         return redirect()->route('admin.users.index');
     }
@@ -54,15 +58,18 @@ class UsersController extends Controller
 
         $roles = Role::pluck('title', 'id');
 
-        $user->load('country', 'roles');
+        $chat_rooms = ChatRoom::pluck('name', 'id');
 
-        return view('admin.users.edit', compact('countries', 'roles', 'user'));
+        $user->load('country', 'roles', 'chat_rooms');
+
+        return view('admin.users.edit', compact('chat_rooms', 'countries', 'roles', 'user'));
     }
 
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->all());
         $user->roles()->sync($request->input('roles', []));
+        $user->chat_rooms()->sync($request->input('chat_rooms', []));
 
         return redirect()->route('admin.users.index');
     }
@@ -71,7 +78,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->load('country', 'roles');
+        $user->load('country', 'roles', 'chat_rooms');
 
         return view('admin.users.show', compact('user'));
     }

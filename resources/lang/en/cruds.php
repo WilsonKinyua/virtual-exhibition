@@ -81,6 +81,8 @@ return [
             'country_helper'            => ' ',
             'avatar'                    => 'Avatar',
             'avatar_helper'             => ' ',
+            'chat_room'                 => 'Chat Room',
+            'chat_room_helper'          => ' ',
         ],
     ],
     'exhibitor' => [

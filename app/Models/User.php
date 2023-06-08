@@ -144,4 +144,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public function chat_rooms()
+    {
+        return $this->belongsToMany(ChatRoom::class);
+    }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, "sender_id");
+    }
 }

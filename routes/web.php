@@ -3,7 +3,7 @@
 Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
+        return redirect()->route('home')->with('status', session('status'));
     }
 
     return redirect()->route('home');
@@ -19,6 +19,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('exhibitor/{slug}/video/create', 'HomeController@exhibitorVideoUpload')->name('exhibitor-video-create');
     Route::get('profile/{slug}/exhibitor', 'HomeController@exhibitorAccountEdit')->name('exhibitor-account-edit');
     Route::get('chat', 'HomeController@chat')->name('chat');
+    Route::post('chat/create/direct-message', 'HomeController@createDirectMessage')->name('create-direct-message');
+    Route::get('chat/{userSlug}/direct-message', 'HomeController@chatDirectMessage')->name('direct-message');
     Route::get('chat-room/{slug}/status', 'HomeController@statusChatRoom')->name('chat-room.status');
     Route::get('exhibitor-video/{slug}/create', 'HomeController@exhibitorVideoCreate')->name('exhibitor-video-create');
     Route::get('exhibitor-document/{slug}/create', 'HomeController@exhibitorDocumentCreate')->name('exhibitor-document-create');

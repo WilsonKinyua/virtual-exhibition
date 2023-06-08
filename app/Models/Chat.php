@@ -24,6 +24,7 @@ class Chat extends Model implements HasMedia
 
     protected $fillable = [
         'chat_room_id',
+        'receiver_id',
         'sender_id',
         'message',
         'message_type',

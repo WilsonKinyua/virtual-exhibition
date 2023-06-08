@@ -54,6 +54,9 @@
                             {{ trans('cruds.user.fields.roles') }}
                         </th>
                         <th>
+                            {{ trans('cruds.user.fields.chat_room') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.user.fields.created_at') }}
                         </th>
                         <th>
@@ -95,6 +98,11 @@
                             <td>
                                 @foreach($user->roles as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                @foreach($user->chat_rooms as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
                                 @endforeach
                             </td>
                             <td>

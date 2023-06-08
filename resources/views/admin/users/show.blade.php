@@ -105,6 +105,16 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.chat_room') }}
+                        </th>
+                        <td>
+                            @foreach($user->chat_rooms as $key => $chat_room)
+                                <span class="label label-info">{{ $chat_room->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">

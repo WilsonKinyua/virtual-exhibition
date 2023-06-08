@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Models\Chat;
+use App\Models\ChatRoom;
 use App\Models\Exhibitor;
 use App\Models\ExhibitorVideo;
 use App\Models\User;
@@ -17,7 +18,7 @@ class HomeController
 {
     public function index()
     {
-        $exhibitors = Exhibitor::with(['country', 'media'])->orderBy("id","desc")->get();
+        $exhibitors = Exhibitor::with(['country', 'media'])->orderBy("id", "desc")->get();
         return Inertia::render('Home', [
             'exhibitors' => $exhibitors
         ]);
@@ -173,7 +174,32 @@ class HomeController
     public function chat()
     {
         return Inertia::render('chat/Index', [
-            "user" => auth()->user()
+            "user" => auth()->user(),
+            "chatRooms" => ChatRoom::all(),
+            "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
+            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender')->get()
+        ]);
+    }
+
+    public function createDirectMessage(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|exists:users',
+        ]);
+
+        $user = User::where("email", $request->email)->first();
+        return to_route('direct-message', $user->slug);
+    }
+
+    public function chatDirectMessage($userSlug)
+    {
+        return Inertia::render('chat/DirectMessage', [
+            "user" => auth()->user(),
+            "chatRooms" => ChatRoom::all(),
+            "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
+            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender')->get(),
+            "directMessageUser" => User::where("slug", $userSlug)->first(),
+            "myDirectMessages" => Chat::where('sender_id', auth()->user()->id)->where('receiver_id', User::where("slug", $userSlug)->first()->id)->with('sender')->get(),
         ]);
     }
 
