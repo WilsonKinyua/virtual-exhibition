@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('chat', 'HomeController@chat')->name('chat');
     Route::post('chat/create/direct-message', 'HomeController@createDirectMessage')->name('create-direct-message');
     Route::get('chat/{userSlug}/direct-message', 'HomeController@chatDirectMessage')->name('direct-message');
+    Route::post('chat-create/direct-message', 'HomeController@createChatDirectMessage')->name('create.direct-message');
     Route::get('chat-room/{slug}/status', 'HomeController@statusChatRoom')->name('chat-room.status');
     Route::get('exhibitor-video/{slug}/create', 'HomeController@exhibitorVideoCreate')->name('exhibitor-video-create');
     Route::get('exhibitor-document/{slug}/create', 'HomeController@exhibitorDocumentCreate')->name('exhibitor-document-create');

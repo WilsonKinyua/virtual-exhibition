@@ -15,7 +15,8 @@ export default function ChatLayout({
     userJoinedChatRooms: any;
     chats: any;
 }) {
-    console.log(chats);
+    // console.log(chats);
+    const displayedChats: string[] = [];
     return (
         <>
             <nav className="navbar-chat navbar bg-dark">
@@ -77,22 +78,58 @@ export default function ChatLayout({
                                     </div>
                                     <ul className="chat-container">
                                         <li>
-                                            {chats.map((chat: any) => (
-                                                <Link
-                                                    href={`/chat/${chat.sender.slug}/direct-message`}
-                                                    key={chat.id}
-                                                >
-                                                    <div className="d-flex">
-                                                        <img
-                                                            src="https://previews.123rf.com/images/apoev/apoev2107/apoev210700033/171405527-default-avatar-photo-placeholder-gray-profile-picture-icon-business-man-illustration.jpg"
-                                                            alt=""
-                                                        />
-                                                        <p>
-                                                            {chat.sender.name}
-                                                        </p>
-                                                    </div>
-                                                </Link>
-                                            ))}
+                                            {chats.map((chat: any) => {
+                                                // Check if the chat is already displayed
+                                                const isDisplayed =
+                                                    displayedChats.includes(
+                                                        chat.sender.id
+                                                    );
+
+                                                if (!isDisplayed) {
+                                                    // Add the chat to the displayedChats list
+                                                    displayedChats.push(
+                                                        chat.sender.id
+                                                    );
+
+                                                    if (
+                                                        chat.sender.id !==
+                                                        user.id
+                                                    ) {
+                                                        return (
+                                                            <Link
+                                                                href={`/chat/${chat.sender.slug}/direct-message`}
+                                                                key={chat.id}
+                                                            >
+                                                                <div className="d-flex">
+                                                                    <img
+                                                                        src="https://previews.123rf.com/images/apoev/apoev2107/apoev210700033/171405527-default-avatar-photo-placeholder-gray-profile-picture-icon-business-man-illustration.jpg"
+                                                                        alt=""
+                                                                    />
+                                                                    <p className="text-capitalize">
+                                                                        {
+                                                                            // chat
+                                                                            //     .receiver
+                                                                            //     .name
+                                                                            chat
+                                                                                .sender
+                                                                                .id !==
+                                                                            user.id
+                                                                                ? chat
+                                                                                      .sender
+                                                                                      .name
+                                                                                : chat
+                                                                                      .receiver
+                                                                                      .name
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            </Link>
+                                                        );
+                                                    }
+                                                }
+
+                                                return null; // Don't render the chat if it's already displayed
+                                            })}
                                         </li>
                                     </ul>
                                 </div>

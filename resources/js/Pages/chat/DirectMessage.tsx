@@ -8,14 +8,12 @@ export default function DirectMessage({
     joinUserChatRooms,
     chats,
     directMessageUser,
-    myDirectMessages,
 }: {
     user: any;
     chatRooms: any;
     joinUserChatRooms: any;
     chats: any;
     directMessageUser: any;
-    myDirectMessages: any;
 }) {
     console.log(chats);
     useEffect(() => {
@@ -39,10 +37,7 @@ export default function DirectMessage({
             userJoinedChatRooms={joinUserChatRooms}
             chats={chats}
         >
-            <DirectMessageChatList
-                user={directMessageUser}
-                myDirectMessages={myDirectMessages}
-            />
+            <DirectMessageChatList user={directMessageUser} chats={chats} />
         </ChatLayout>
     );
 }

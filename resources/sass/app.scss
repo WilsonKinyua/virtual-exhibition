@@ -574,6 +574,10 @@ p.form-error {
     font-size: 13px;
 }
 
+.is-invalid {
+    border: 1.5px solid red !important;
+}
+
 .required::after {
     content: " *";
     color: red;

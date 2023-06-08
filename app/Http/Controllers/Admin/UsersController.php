@@ -14,6 +14,8 @@ use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
+
 
 class UsersController extends Controller
 {
@@ -43,6 +45,8 @@ class UsersController extends Controller
 
     public function store(StoreUserRequest $request)
     {
+        // add to request
+        $request->merge(['slug' => Str::slug($request->name, '-')]);
         $user = User::create($request->all());
         $user->roles()->sync($request->input('roles', []));
         $user->chat_rooms()->sync($request->input('chat_rooms', []));

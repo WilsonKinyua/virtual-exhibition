@@ -1,14 +1,16 @@
 import React, { useRef } from "react";
 import { toast } from "react-toastify";
+import { router, usePage } from "@inertiajs/react";
 
 export default function DirectMessageChatList({
     user,
-    myDirectMessages,
+    chats,
 }: {
     user: any;
-    myDirectMessages: any;
+    chats: any;
 }) {
     const messageRef = useRef<HTMLInputElement>(null);
+    const { errors } = usePage().props;
     const createDirectMessage = (e: any) => {
         e.preventDefault();
         const message = messageRef.current?.value;
@@ -16,6 +18,11 @@ export default function DirectMessageChatList({
             toast.error("Please enter a message");
             return;
         }
+        router.post("/chat-create/direct-message", {
+            receiver: user.id,
+            message,
+        });
+        messageRef.current!.value = "";
     };
     return (
         <div className="col-md-9">
@@ -29,7 +36,7 @@ export default function DirectMessageChatList({
                     </div>
                 </div>
                 <div className="chat-body">
-                    {myDirectMessages.map((message: any) => (
+                    {chats.map((message: any) => (
                         <div className="d-flex" key={message.id}>
                             <div>
                                 <img
@@ -51,9 +58,9 @@ export default function DirectMessageChatList({
                             </div>
                         </div>
                     ))}
-                    {myDirectMessages.length === 0 && (
+                    {chats.length === 0 && (
                         <div className="text-center">
-                            <h5 style={{ marginTop: "350px" }}>
+                            <h5 style={{ marginTop: "300px" }}>
                                 You have no messages 😃
                             </h5>
                         </div>
@@ -64,7 +71,11 @@ export default function DirectMessageChatList({
                 <div className="input-group mb-3">
                     <input
                         type="text"
-                        className="form-control"
+                        className={
+                            errors.message
+                                ? "form-control is-invalid"
+                                : "form-control"
+                        }
                         placeholder="Enter Message"
                         aria-label="Enter Message"
                         aria-describedby="button-addon2"

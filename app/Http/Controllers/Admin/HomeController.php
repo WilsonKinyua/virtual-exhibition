@@ -177,7 +177,7 @@ class HomeController
             "user" => auth()->user(),
             "chatRooms" => ChatRoom::all(),
             "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
-            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender')->get()
+            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender', 'receiver')->get()
         ]);
     }
 
@@ -197,10 +197,27 @@ class HomeController
             "user" => auth()->user(),
             "chatRooms" => ChatRoom::all(),
             "joinUserChatRooms" => auth()->user()->chat_rooms()->get(),
-            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender')->get(),
+            "chats" => Chat::where('sender_id', auth()->user()->id)->orWhere('receiver_id', auth()->user()->id)->with('sender', 'receiver')->get(),
             "directMessageUser" => User::where("slug", $userSlug)->first(),
-            "myDirectMessages" => Chat::where('sender_id', auth()->user()->id)->where('receiver_id', User::where("slug", $userSlug)->first()->id)->with('sender')->get(),
+            // "myDirectMessages" => Chat::where('sender_id', auth()->user()->id)->with('sender', 'receiver')->get(),
         ]);
+    }
+
+    public function createChatDirectMessage(Request $request)
+    {
+        $request->validate([
+            'message' => 'required',
+            'receiver' => 'required|exists:users,id',
+        ]);
+
+        $chat = Chat::create([
+            "sender_id" => auth()->user()->id,
+            "receiver_id" => $request->receiver,
+            "message" => $request->message,
+            "message_type" => "text"
+        ]);
+
+        return redirect()->back();
     }
 
     public function dashboard()
